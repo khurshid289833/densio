@@ -8,7 +8,7 @@ class SecondScreen extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
+
     return SecondScreenState();
   }
 }
@@ -21,7 +21,7 @@ class SecondScreenState extends State<SecondScreen> {
     return Scaffold(
 
       appBar: AppBar(
-        title: Text("Second Screen", style: Theme.of(context).textTheme.headline1,),
+        title: Text("Second Screen",),
 
       ),
       body: Column(
