@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:numeric_keyboard/numeric_keyboard.dart';
+
 
 class SecondScreen extends StatefulWidget {
   final String value;
@@ -26,21 +26,7 @@ class SecondScreenState extends State<SecondScreen> {
       body: Column(
         children: [
           Text(text),
-          NumericKeyboard(
-              onKeyboardTap: _onKeyboardTap,
-              textColor: Colors.red,
-              rightButtonFn: () {
-                setState(() {
-                  text = text.substring(0, text.length - 1);
-                });
-              },
-              rightIcon: Icon(Icons.backspace, color: Colors.red,),
-              leftButtonFn: () {
-                print('left button clicked');
-              },
-              leftIcon: Icon(Icons.check, color: Colors.red,),
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly
-          ),
+
         ],
 
       )
@@ -48,9 +34,4 @@ class SecondScreenState extends State<SecondScreen> {
 
   }
 
-  _onKeyboardTap(String value) {
-    setState(() {
-      text = text + value;
-    });
-
-}}
+}
