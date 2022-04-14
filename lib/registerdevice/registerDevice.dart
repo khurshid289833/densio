@@ -11,7 +11,7 @@ class RegisterDevice extends StatefulWidget{
 class RegisterDeviceState extends State<RegisterDevice>{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
     return Scaffold();
 
   }
