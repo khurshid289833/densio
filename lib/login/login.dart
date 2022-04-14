@@ -25,16 +25,16 @@ class LoginState extends State<Login> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.only(top: 100, left: 20, right: 20),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(top: 100, left: 20, right: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(child: Image.asset("assets/logo.png")),
+              Center(child: Image.asset("assets/logo.png", height: 130,width: 130,)),
               SizedBox(
-                height: 35,
+                height: 30,
               ),
               Text(
                 AppString.SignIn,
@@ -159,7 +159,7 @@ class LoginState extends State<Login> {
                   style: ElevatedButton.styleFrom(
                       primary: Colors.blueAccent,
                       textStyle:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                      TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                   onPressed: () {
                     if(_formkey.currentState!.validate())
                     {
