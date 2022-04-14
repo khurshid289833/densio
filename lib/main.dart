@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled2/register/register.dart';
 
 import 'SecondScreen.dart';
 
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
 
         )
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Register()//MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
