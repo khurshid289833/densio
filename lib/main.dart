@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:untitled2/controller/enterPasswordController.dart';
-import 'package:untitled2/controller/otpController.dart';
-import 'package:untitled2/controller/registerController.dart';
+import 'package:untitled2/login/login.dart';
 import 'package:untitled2/register/register.dart';
-
-import 'SecondScreen.dart';
+import 'package:untitled2/drawer/pageRoutes.dart';
+import 'package:untitled2/webhooks/webhooks.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
+import 'controller/enterPasswordController.dart';
+import 'controller/otpController.dart';
+import 'controller/registerController.dart';
+import 'home/dashboard.dart';
+import 'home/home.dart';
+
+var sharedPreferences;
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences.getInstance().then((shared) {
+    sharedPreferences = shared;
+    runApp(MyApp());
+  });
 
 }
 
@@ -23,6 +33,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<OtpController>(create: (_) => OtpController()),
         ChangeNotifierProvider<EnterPasswordController>(create: (_) => EnterPasswordController()),
       ],
+
       child: MaterialApp(
         title: 'LogicHive',
         theme: ThemeData(
@@ -35,7 +46,7 @@ class MyApp extends StatelessWidget {
           // or simply save your changes to "hot reload" in a Flutter IDE).
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
-          primarySwatch: Colors.red,
+          primarySwatch: Colors.orange,
           accentColor: Colors.deepOrange,
           fontFamily: '',
           textTheme:  const TextTheme(
@@ -46,9 +57,15 @@ class MyApp extends StatelessWidget {
 
           )
         ),
-        home: Register()
-        //MyHomePage(title: 'Flutter Demo Home Page'),
-      ),
+        home: MyHomePage(title: 'Aurum',),//MyHomePage(title: 'Flutter Demo Home Page'),
+        routes:  {
+      pageRoutes.home: (context) => Home(),
+      pageRoutes.webhook: (context) => Webhooks(),
+      pageRoutes.webhook: (context) => Webhooks(),
+      pageRoutes.webhook: (context) => Webhooks(),
+      pageRoutes.webhook: (context) => Webhooks(),
+      pageRoutes.dashboard: (context) => Dashboard(),
+      }, ),
     );
   }
 }
@@ -63,34 +80,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var isLogin;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isLogin = sharedPreferences.getBool("isLogin");
+
+}
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(
-            title: Text("Aurum"),
-      ),
-      body: Center(
-            child: Column(
 
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const SecondScreen(value: "Hi i am abhishek")),);
-              },
-
-              child: Text(
-                'Hello ',
-              ),
-            ),
-
-
-          ],
-        ),
-      ),
+      body: isLogin==true?Dashboard():Login(),
 
     );
   }

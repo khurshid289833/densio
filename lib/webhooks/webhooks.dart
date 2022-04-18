@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-class RegisterDevice extends StatefulWidget{
+class Webhooks extends StatefulWidget{
+  static const String routeName = '/webhooks';
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return RegisterDeviceState();
+    return WebhooksState();
   }
   
 }
-class RegisterDeviceState extends State<RegisterDevice>{
+class WebhooksState extends State<Webhooks>{
   @override
   Widget build(BuildContext context) {
-
+    // TODO: implement build
     return Scaffold();
-
   }
   
 }
