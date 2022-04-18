@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:untitled2/login/login.dart';
 import 'package:untitled2/register/register.dart';
+import 'package:untitled2/drawer/pageRoutes.dart';
+import 'package:untitled2/webhooks/webhooks.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'SecondScreen.dart';
+import 'home/dashboard.dart';
+import 'home/home.dart';
+
+var sharedPreferences;
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences.getInstance().then((shared) {
+    sharedPreferences = shared;
+    runApp(MyApp());
+  });
 
 }
 
@@ -37,8 +47,15 @@ class MyApp extends StatelessWidget {
 
         )
       ),
-      home: MyHomePage(title: 'Aurum',)//MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+      home: MyHomePage(title: 'Aurum',),//MyHomePage(title: 'Flutter Demo Home Page'),
+      routes:  {
+    pageRoutes.home: (context) => Home(),
+    pageRoutes.webhook: (context) => Webhooks(),
+    pageRoutes.webhook: (context) => Webhooks(),
+    pageRoutes.webhook: (context) => Webhooks(),
+    pageRoutes.webhook: (context) => Webhooks(),
+    pageRoutes.dashboard: (context) => Dashboard(),
+    }, );
   }
 }
 
@@ -52,14 +69,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var isLogin;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isLogin = sharedPreferences.getBool("isLogin");
+
+}
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
 
-      body: Login(),
+      body: isLogin==true?Dashboard():Login(),
 
     );
   }

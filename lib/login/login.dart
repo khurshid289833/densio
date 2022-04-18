@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:untitled2/main.dart';
 import 'package:untitled2/utils/InputDecoration.dart';
 import 'package:untitled2/utils/appString.dart';
-
+import 'package:untitled2/drawer/pageRoutes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class Login extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -160,9 +162,11 @@ class LoginState extends State<Login> {
                       primary: Colors.blueAccent,
                       textStyle:
                       TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                  onPressed: () {
+                  onPressed: () async {
                     if(_formkey.currentState!.validate())
                     {
+                      sharedPreferences.setBool('isLogin', true);
+                      Navigator.pushReplacementNamed(context, pageRoutes.dashboard);
 
                       return;
                     }else{
