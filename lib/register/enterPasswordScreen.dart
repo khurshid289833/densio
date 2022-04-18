@@ -193,7 +193,7 @@ class _EnterPasswordScreenState extends State<EnterPasswordScreen> {
                     borderRadius: BorderRadius.circular(6),
                   ),
                 ),
-                child: Text(AppString.signIn,
+                child: Text(AppString.SignUp,
                   style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                 ),
                 onPressed: (){
