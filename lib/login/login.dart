@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled2/main.dart';
+import 'package:untitled2/register/register.dart';
 import 'package:untitled2/utils/InputDecoration.dart';
 import 'package:untitled2/utils/appString.dart';
 import 'package:untitled2/drawer/pageRoutes.dart';
@@ -40,7 +41,7 @@ class LoginState extends State<Login> {
               ),
               Text(
                 AppString.SignIn,
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 15,
@@ -192,7 +193,10 @@ class LoginState extends State<Login> {
                   ),
                   TextButton(
                     onPressed: () {
-
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  Register()),
+                      );
                     }, child:  Text(AppString.SignUp, style: TextStyle( decoration: TextDecoration.underline,
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
