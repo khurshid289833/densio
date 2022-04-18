@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 
 class RegisterController extends ChangeNotifier {
 
-  int secondsRemaining = 30;
-  bool enableResend = false;
-  //Timer timer;
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+
 
 }

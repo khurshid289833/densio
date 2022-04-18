@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:untitled2/controller/otpController.dart';
+import 'package:untitled2/register/emailVerifiedScreen.dart';
 import 'package:untitled2/utils/appColor.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled2/utils/appString.dart';
 
 class EnterOtpScreen extends StatefulWidget {
   const EnterOtpScreen({Key? key}) : super(key: key);
@@ -11,14 +15,28 @@ class EnterOtpScreen extends StatefulWidget {
 }
 
 class _EnterOtpScreenState extends State<EnterOtpScreen> {
-  TextEditingController otpController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    OtpController provider = Provider.of<OtpController>(context, listen: false);
+    provider.initialize();
+    provider.starTimer();
+    super.initState();
+  }
+
+  void showSnackBar(String text){
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(text,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: AppColor.greenTextColor)),
+      backgroundColor: AppColor.lightGreenColor,
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
+    OtpController provider = Provider.of<OtpController>(context);
     return Scaffold(
       body: Form(
-        key: _formKey,
+        key: provider.formKey,
         child: ListView(
           scrollDirection: Axis.vertical,
           physics: ScrollPhysics(),
@@ -29,7 +47,7 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
             Container(
               margin: EdgeInsets.only(top: 20),
               alignment: Alignment.center,
-              child: Text("Verification Code",
+              child: Text(AppString.verificationCode,
                 style: TextStyle(fontSize: 24,fontWeight: FontWeight.w600),
               ),
             ),
@@ -49,13 +67,12 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
                 },
                 appContext: context,
                 length: 6,
+                keyboardType: TextInputType.number,
                 cursorColor: Colors.black,
                 textStyle: TextStyle(fontWeight: FontWeight.bold),
                 enableActiveFill: true,
-                controller: otpController,
-                onChanged: (value) {
-                  print(value);
-                },
+                controller: provider.otpController,
+                onChanged: (value) {},
                 pinTheme: PinTheme(
                   shape: PinCodeFieldShape.box,
                   borderWidth: 1.0,
@@ -69,15 +86,18 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
                   activeFillColor: AppColor.greyColor,
                   selectedFillColor: AppColor.greyColor,
                 ),
-                // onCompleted: (value){
-                // },
               ),
             ),
             Container(
               margin: EdgeInsets.only(top: 40),
               alignment: Alignment.center,
-              child: Text("Resend code in 00:30 ",
-                style: TextStyle(fontSize: 12,color: AppColor.blueColor,fontWeight: FontWeight.w500),
+              child: GestureDetector(
+                onTap: (){
+                  provider.enableResend ? provider.resendCode(): showSnackBar("Please wait");
+                },
+                child: Text("${AppString.resendCodeIn} 00:${provider.secondsRemaining.toString().padLeft(2,'0')} ",
+                  style: TextStyle(fontSize: 12,color: AppColor.blueColor,fontWeight: FontWeight.w500),
+                ),
               ),
             ),
             Container(
@@ -91,11 +111,12 @@ class _EnterOtpScreenState extends State<EnterOtpScreen> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: Text("Verify",
+                child: Text(AppString.verify,
                   style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                 ),
                 onPressed: (){
-                  if (_formKey.currentState!.validate()) {
+                  if (provider.formKey.currentState!.validate()) {
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>EmailVerifiedScreen()));
                   }
                 },
               ),

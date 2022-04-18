@@ -1,8 +1,11 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:untitled2/controller/registerController.dart';
 import 'package:untitled2/register/enterOtpScreen.dart';
 import 'package:untitled2/utils/appColor.dart';
 import 'package:untitled2/utils/appString.dart';
+import 'package:provider/provider.dart';
 
 class Register extends StatefulWidget{
   @override
@@ -13,18 +16,15 @@ class Register extends StatefulWidget{
   
 }
 class RegisterState extends State<Register>{
-  final _formKey = GlobalKey<FormState>();
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    RegisterController provider = Provider.of<RegisterController>(context);
     // TODO: implement build
     return Scaffold(
       body: Form(
-        key: _formKey,
+        key: formKey,
         child: ListView(
           scrollDirection: Axis.vertical,
           physics: ScrollPhysics(),
@@ -37,7 +37,10 @@ class RegisterState extends State<Register>{
               //height: 50,
               margin: EdgeInsets.only(top: 25),
               child: TextFormField(
-                controller: firstNameController,
+                controller: provider.firstNameController,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
+                ], //
                 validator: (val) {
                   if (val!.length == 0 || val.length<3)
                     return "Please enter a valid name";
@@ -46,7 +49,7 @@ class RegisterState extends State<Register>{
                 },
                 cursorColor: Colors.black38,
                 decoration: InputDecoration(
-                  hintText: "First Name",
+                  hintText: AppString.firstName,
                   hintStyle: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor,letterSpacing: 0.9),
                   contentPadding: EdgeInsets.only(top: 0,left: 15,bottom: 0),
                   focusedBorder: OutlineInputBorder(
@@ -68,7 +71,10 @@ class RegisterState extends State<Register>{
               //height: 50,
               margin: EdgeInsets.only(top: 10),
               child: TextFormField(
-                controller: lastNameController,
+                controller: provider.lastNameController,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
+                ], //
                 validator: (val) {
                   if (val!.length == 0 || val.length<3)
                     return "Please enter a valid name";
@@ -77,7 +83,7 @@ class RegisterState extends State<Register>{
                 },
                 cursorColor: Colors.black38,
                 decoration: InputDecoration(
-                  hintText: "Last Name",
+                  hintText: AppString.lastName,
                   hintStyle: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor,letterSpacing: 0.9),
                   contentPadding: EdgeInsets.only(top: 0,left: 15,bottom: 0),
                   focusedBorder: OutlineInputBorder(
@@ -99,16 +105,23 @@ class RegisterState extends State<Register>{
              //height: 50,
               margin: EdgeInsets.only(top: 10),
               child: TextFormField(
-                controller: phoneController,
+                controller: provider.phoneController,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly
+                ], // O
                 validator: (val) {
                   if (val!.length == 0 || val.length<10)
                     return "Please enter a valid mobile number";
                   else
                     return null;
                 },
+                maxLength: 10,
+                keyboardType: TextInputType.number,
+                maxLengthEnforcement: MaxLengthEnforcement.enforced,
                 cursorColor: Colors.black38,
                 decoration: InputDecoration(
-                  hintText: "Mobile Number",
+                  counterText: "",
+                  hintText: AppString.mobileNumber,
                   hintStyle: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor,letterSpacing: 0.9),
                   contentPadding: EdgeInsets.only(top: 0,left: 15,bottom: 0),
                   focusedBorder: OutlineInputBorder(
@@ -130,11 +143,11 @@ class RegisterState extends State<Register>{
               //height: 50,
               margin: EdgeInsets.only(top: 10),
               child: TextFormField(
-                controller: emailController,
+                controller: provider.emailController,
                 validator: (value) => EmailValidator.validate(value!) ? null : "Please enter a valid email address",
                 cursorColor: Colors.black38,
                 decoration: InputDecoration(
-                  hintText: "Email Address",
+                  hintText: AppString.emailAddress,
                   hintStyle: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor,letterSpacing: 0.9),
                   contentPadding: EdgeInsets.only(top: 0,left: 15,bottom: 0),
                   focusedBorder: OutlineInputBorder(
@@ -163,12 +176,12 @@ class RegisterState extends State<Register>{
                     borderRadius: BorderRadius.circular(6),
                   ),
                 ),
-                child: Text("Verify",
+                child: Text(AppString.verify,
                   style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                 ),
                 onPressed: (){
-                  if (_formKey.currentState!.validate()) {
-
+                  if (formKey.currentState!.validate()) {
+                    print(provider.firstNameController.text);
                   }
                 },
               ),
@@ -177,14 +190,14 @@ class RegisterState extends State<Register>{
               padding: const EdgeInsets.only(top: 20),
               child: Row(
                 children: [
-                  Text("Already have an account? ",
+                  Text(AppString.alreadyHaveAnAccount,
                     style: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor,fontWeight: FontWeight.bold),
                   ),
                   InkWell(
                     onTap: (){
                       Navigator.of(context).push(MaterialPageRoute(builder: (context)=>EnterOtpScreen()));
                     },
-                    child: Text("Sign in here",
+                    child: Text(AppString.signInHere,
                       style: TextStyle(fontSize: 14,color: AppColor.blueColor,fontWeight: FontWeight.bold),
                     ),
                   ),
