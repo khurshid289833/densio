@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:untitled2/controller/registerController.dart';
 import 'package:untitled2/register/enterOtpScreen.dart';
+import 'package:untitled2/register/enterPasswordScreen.dart';
 import 'package:untitled2/utils/appColor.dart';
 import 'package:untitled2/utils/appString.dart';
 import 'package:provider/provider.dart';
@@ -176,7 +177,7 @@ class RegisterState extends State<Register>{
                     borderRadius: BorderRadius.circular(6),
                   ),
                 ),
-                child: Text(AppString.verify,
+                child: Text(AppString.SignUp,
                   style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                 ),
                 onPressed: (){
@@ -195,7 +196,7 @@ class RegisterState extends State<Register>{
                   ),
                   InkWell(
                     onTap: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>EnterOtpScreen()));
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>EnterPasswordScreen()));
                     },
                     child: Text(AppString.signInHere,
                       style: TextStyle(fontSize: 14,color: AppColor.blueColor,fontWeight: FontWeight.bold),
