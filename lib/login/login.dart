@@ -111,7 +111,7 @@ class LoginState extends State<Login> {
                       icon: Icon(
                         // Based on passwordVisible state choose the icon
                         _passwordVisible ? Icons.visibility : Icons.visibility_off,
-                        color: Theme.of(context).primaryColorDark,
+                        color: Colors.black54,
                       ),
                       onPressed: () {
                         // Update the state i.e. toogle the state of passwordVisible variable
