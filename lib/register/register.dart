@@ -18,6 +18,7 @@ class Register extends StatefulWidget{
   }
   
 }
+
 class RegisterState extends State<Register>{
   final formKey = GlobalKey<FormState>();
   RegisterService _registerService = RegisterService();
@@ -216,7 +217,7 @@ class RegisterState extends State<Register>{
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(
-                          provider.passwordVisible1 ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                          provider.passwordVisible1 ?  Icons.visibility_off_outlined : Icons.visibility_outlined ,
                           color: Color(0xFF223354),
                         ),
                         onPressed: () {
@@ -257,7 +258,7 @@ class RegisterState extends State<Register>{
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(
-                          provider.passwordVisible2 ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                          provider.passwordVisible2 ?  Icons.visibility_off_outlined : Icons.visibility_outlined,
                           color: Color(0xFF223354),
                         ),
                         onPressed: () {
@@ -360,7 +361,7 @@ class RegisterState extends State<Register>{
                         else if(response == "Contact number already exists")
                           showAlert(context, "Contact number already exists");
                         else if(response == "Email already exists")
-                         showAlert(context, "Email already exists");
+                          showAlert(context, "Email already exists");
                         else
                           showAlert(context, "something went wrong");
                       }
