@@ -10,8 +10,12 @@ class AppString{
   static const String enterEmailText = "Please enter your username and password to enter the portal";
   static const String emailRequired = "Email is required";
   static const String passwordRequired = "Password is required";
+  static const String passwordInvalid = "Password is Invalid";
+
   static const String invalidEmailPassword = "Invalid Username/Password";
   static const String invalidEmail = "Please enter a valid Email";
+  static const String invalidNumber = "Please enter a valid Mobile Number";
+  static const String invalidNumberEmail = "Please enter a valid Username or Mobile Number";
 
   static const String firstName = "First Name";
   static const String lastName = "Last Name";
@@ -33,6 +37,24 @@ class AppString{
   static const String enterPassword = "Enter Password";
   static const String confirmPassword = "Confirm Password";
   static const String signIn = "Sign In";
+
+  //Drawer
+  static const String deviceMaintainance = "DEVICE MAINTAINANCE";
+  static const String home = "Home";
+  static const String webHooks = "Webhooks";
+  static const String preferences = "Preferences";
+  static const String people = "PEOPLE";
+  static const String myTeam = "My Team";
+  static const String billing = "Billing";
+  static const String documentation = "DOCUMENTATION";
+  static const String startGuide = "Start Guide";
+  static const String howItWorks = "How it works";
+  static const String faq = "FAQ";
+  static const String contactSupport = "Contact Support";
+
+  //Home
+  static const String summary = "Summary";
+
 
 
 }
