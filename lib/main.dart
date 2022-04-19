@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:untitled2/login/login.dart';
-import 'package:untitled2/register/register.dart';
 import 'package:untitled2/drawer/pageRoutes.dart';
 import 'package:untitled2/webhooks/webhooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
-import 'controller/enterPasswordController.dart';
-import 'controller/otpController.dart';
 import 'controller/registerController.dart';
 import 'home/dashboard.dart';
 import 'home/home.dart';
@@ -30,8 +27,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<RegisterController>(create: (_) => RegisterController()),
-        ChangeNotifierProvider<OtpController>(create: (_) => OtpController()),
-        ChangeNotifierProvider<EnterPasswordController>(create: (_) => EnterPasswordController()),
       ],
 
       child: MaterialApp(
