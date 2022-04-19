@@ -37,7 +37,7 @@ class RegisterState extends State<Register>{
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     RegisterController provider = Provider.of<RegisterController>(context);
-    // TODO: implement build
+
     return Stack(
       children: [
         Scaffold(
