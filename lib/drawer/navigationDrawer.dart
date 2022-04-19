@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled2/drawer/pageRoutes.dart';
+import 'package:untitled2/utils/appString.dart';
 
 import 'createDrawerBodyItem.dart';
 import 'createDrawerHeader.dart';
@@ -12,72 +13,82 @@ class navigationDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           createDrawerHeader(),
-SizedBox(height: 15,),
-Divider(),
+          SizedBox(
+            height: 15,
+          ),
+          Divider(),
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 5, 0),
-            child: Text("DEVICE MAINTAINANCE",style: TextStyle(color: Colors.black54),),
+            child: Text(
+              AppString.deviceMaintainance,
+              style: TextStyle(color: Colors.black54),
+            ),
           ),
           createDrawerBodyItem(
             icon: Icons.home,
-            text: 'Home',
+            text: AppString.home,
             onTap: () =>
                 Navigator.pushReplacementNamed(context, pageRoutes.home),
           ),
           createDrawerBodyItem(
             icon: Icons.account_circle,
-            text: 'Webhooks',
+            text: AppString.webHooks,
             onTap: () =>
                 Navigator.pushReplacementNamed(context, pageRoutes.webhook),
           ),
-
           createDrawerBodyItem(
             icon: Icons.event_note,
-            text: 'Preferences',
+            text: AppString.preferences,
             onTap: () =>
                 Navigator.pushReplacementNamed(context, pageRoutes.webhook),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 20, 5, 0),
-            child: Text("PEOPLE",style: TextStyle(color: Colors.black54),),
+            child: Text(
+              AppString.people,
+              style: TextStyle(color: Colors.black54),
+            ),
           ),
           createDrawerBodyItem(
             icon: Icons.notifications_active,
-            text: 'My Team',
+            text: AppString.myTeam,
             onTap: () =>
                 Navigator.pushReplacementNamed(context, pageRoutes.webhook),
           ),
           createDrawerBodyItem(
             icon: Icons.contact_phone,
-            text: 'Billing',
+            text: AppString.billing,
             onTap: () =>
                 Navigator.pushReplacementNamed(context, pageRoutes.webhook),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 20, 5, 0),
-            child: Text("DOCUMENTATION",style: TextStyle(color: Colors.black54),),
+            child: Text(
+              AppString.documentation,
+              style: TextStyle(color: Colors.black54),
+            ),
           ),
           createDrawerBodyItem(
             icon: Icons.notifications_active,
-            text: 'Start Guide',
+            text: AppString.startGuide,
             onTap: () =>
                 Navigator.pushReplacementNamed(context, pageRoutes.webhook),
           ),
           createDrawerBodyItem(
             icon: Icons.contact_phone,
-            text: 'How it works',
+            text: AppString.howItWorks,
             onTap: () =>
                 Navigator.pushReplacementNamed(context, pageRoutes.webhook),
           ),
           createDrawerBodyItem(
             icon: Icons.contact_phone,
-            text: 'FAQ',
+            text: AppString.faq,
             onTap: () =>
                 Navigator.pushReplacementNamed(context, pageRoutes.webhook),
           ),
           createDrawerBodyItem(
             icon: Icons.contact_phone,
-            text: 'Contact Support',
+            text: AppString.contactSupport,
             onTap: () =>
                 Navigator.pushReplacementNamed(context, pageRoutes.webhook),
           ),

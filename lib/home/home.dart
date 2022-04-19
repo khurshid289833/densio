@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled2/drawer/navigationDrawer.dart';
 import 'package:untitled2/utils/appColor.dart';
+import 'package:untitled2/utils/appString.dart';
 
 class Home extends StatefulWidget{
   static const String routeName = '/homePage';
@@ -57,7 +58,7 @@ class HomeState extends State<Home>{
                   children: [ElevatedButton(
 
                     child: Text(
-                      "Summary",
+                      AppString.summary,
 
                     ),
                     style: ElevatedButton.styleFrom(
@@ -71,16 +72,9 @@ class HomeState extends State<Home>{
                 ),
               ),
 
-
             ],),
           ),
         )
-
-      /*GestureDetector(
-            onTap: (){
-              _key.currentState!.openDrawer();
-            },
-            child: Center(child: Text("This is home page")))*/
 
     );
   }

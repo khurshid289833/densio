@@ -22,11 +22,14 @@ class LoginState extends State<Login> {
   @override
   void initState() {
     _passwordVisible = false;
+
+     //sharedPreferences.getString("savedEmail");
+
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -59,8 +62,14 @@ class LoginState extends State<Login> {
                     if(value!.isEmpty)
                     {
                       return AppString.emailRequired;
-                    } if(!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)){
+                    } if(value.contains("@") && !RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)){
                       return AppString.invalidEmail;
+                    }if(isNumeric(value)==true && value.length!=10){
+                      return AppString.invalidNumber;
+
+                    }if(value.contains("@")==false && isNumeric(value)==false){
+                      return AppString.invalidNumberEmail;
+
                     }
                     return null;
                   },
@@ -75,6 +84,9 @@ class LoginState extends State<Login> {
                     if(value!.isEmpty)
                     {
                       return AppString.passwordRequired;
+                    } if(value!.length<8)
+                    {
+                      return AppString.passwordInvalid;
                     }
                     return null;
                   },
@@ -166,6 +178,11 @@ class LoginState extends State<Login> {
                   onPressed: () async {
                     if(_formkey.currentState!.validate())
                     {
+                      if(_isChecked==true){
+                        sharedPreferences.setString('savedEmail',emailController.text);
+                        sharedPreferences.setString('savedPassword',passwordController.text );
+                      }
+
                       sharedPreferences.setBool('isLogin', true);
                       Navigator.pushReplacementNamed(context, pageRoutes.dashboard);
 
@@ -209,5 +226,12 @@ class LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  bool isNumeric(String s) {
+    if (s == null) {
+      return false;
+    }
+    return double.tryParse(s) != null;
   }
 }
