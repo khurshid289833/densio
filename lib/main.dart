@@ -5,7 +5,6 @@ import 'package:untitled2/webhooks/webhooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'controller/registerController.dart';
-import 'home/dashboard.dart';
 import 'home/home.dart';
 
 var sharedPreferences;
@@ -59,8 +58,8 @@ class MyApp extends StatelessWidget {
       pageRoutes.webhook: (context) => Webhooks(),
       pageRoutes.webhook: (context) => Webhooks(),
       pageRoutes.webhook: (context) => Webhooks(),
-      pageRoutes.dashboard: (context) => Dashboard(),
-      }, ),
+          pageRoutes.login: (context) => Login(),
+        }, ),
     );
   }
 }
@@ -89,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      body: isLogin==true?Dashboard():Login(),
+      body: isLogin==true?Home():Login(),
 
     );
   }

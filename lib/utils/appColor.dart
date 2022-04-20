@@ -17,5 +17,8 @@ class AppColor{
   static const Color lightRedBackground = const Color(0xFFFFCBCA);
   static const Color redText = const Color(0xFFDA100B);
   static const Color greenText = const Color(0xFF3BB900);
+  static const Color cardShadow = const Color(0xFF9FA2BF);
+  static const Color cardDivider = const Color(0xFF223354);
+  static const Color calibrated = const Color(0xFF3BB900);
 
 }
