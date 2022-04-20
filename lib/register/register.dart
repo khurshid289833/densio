@@ -356,7 +356,7 @@ class RegisterState extends State<Register>{
                         );
                         provider.changeLoadingStatus(false);
                         if(response == "User registered successfully")
-                          Navigator.pushReplacementNamed(context, pageRoutes.dashboard);
+                          Navigator.pushReplacementNamed(context, pageRoutes.home);
                         else if(response == "Contact number already exists")
                           showAlert(context, "Contact number already exists");
                         else if(response == "Email already exists")

@@ -51,6 +51,7 @@ class AppString{
   static const String howItWorks = "How it works";
   static const String faq = "FAQ";
   static const String contactSupport = "Contact Support";
+  static const String logout = "Logout";
 
   //Home
   static const String summary = "Summary";

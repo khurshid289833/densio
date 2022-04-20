@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled2/drawer/pageRoutes.dart';
 import 'package:untitled2/utils/appString.dart';
 
+import '../main.dart';
 import 'createDrawerBodyItem.dart';
 import 'createDrawerHeader.dart';
 
@@ -91,6 +92,18 @@ class navigationDrawer extends StatelessWidget {
             text: AppString.contactSupport,
             onTap: () =>
                 Navigator.pushReplacementNamed(context, pageRoutes.webhook),
+          ),
+
+          createDrawerBodyItem(
+            icon: Icons.logout,
+            text: AppString.logout,
+            onTap: () {
+              sharedPreferences.setBool('isLogin', false);
+              Navigator.pushReplacementNamed(context, pageRoutes.login);
+
+            }
+
+
           ),
         ],
       ),

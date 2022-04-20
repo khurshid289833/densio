@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled2/main.dart';
 import 'package:untitled2/register/register.dart';
 import 'package:untitled2/services/LoginService.dart';
 import 'package:untitled2/utils/InputDecoration.dart';
+import 'package:untitled2/utils/appColor.dart';
 import 'package:untitled2/utils/appString.dart';
 import 'package:untitled2/drawer/pageRoutes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,6 +14,8 @@ import 'package:untitled2/widget/alertDialog.dart';
 import 'package:untitled2/widget/loader.dart';
 
 class Login extends StatefulWidget {
+  static const String routeName = '/login';
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -31,7 +35,11 @@ class LoginState extends State<Login> {
   void initState() {
     _passwordVisible = false;
 
-     //sharedPreferences.getString("savedEmail");
+    if(sharedPreferences.getString("savedEmail")!=null){
+      emailController.text= sharedPreferences.getString("savedEmail");
+      passwordController.text= sharedPreferences.getString("savedPassword");
+
+    }
 
   }
 
@@ -43,7 +51,7 @@ class LoginState extends State<Login> {
         Scaffold(
           body: SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.only(top: 100, left: 20, right: 20),
+              padding: EdgeInsets.only(top: 80, left: 20, right: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +80,7 @@ class LoginState extends State<Login> {
                         if(value!.isEmpty)
                         {
                           return AppString.emailRequired;
-                        } if(value.contains("@") && !RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)){
+                        } if(value.contains("@") && EmailValidator.validate(value!)==false){
                           return AppString.invalidEmail;
                         }if(isNumeric(value)==true && value.length!=10){
                           return AppString.invalidNumber;
@@ -155,7 +163,7 @@ class LoginState extends State<Login> {
                         height: 24.0,
                         width: 24.0,
                         child: Checkbox(
-                          activeColor: Colors.amber,
+                          activeColor: AppColor.blueColor,
                           value: _isChecked,
                           onChanged: (value) {
                             setState(() {
@@ -191,6 +199,10 @@ class LoginState extends State<Login> {
                           if(_isChecked==true){
                             sharedPreferences.setString('savedEmail',emailController.text);
                             sharedPreferences.setString('savedPassword',passwordController.text );
+                          }else{
+                            sharedPreferences.setString('savedEmail',"");
+                            sharedPreferences.setString('savedPassword',"");
+
                           }
 
                           isLoading=true;
@@ -204,7 +216,7 @@ class LoginState extends State<Login> {
                           setState(() {
                             isLoading=false;
                             if(response == "User logged in successfully"){
-                              Navigator.pushReplacementNamed(context, pageRoutes.dashboard);
+                              Navigator.pushReplacementNamed(context, pageRoutes.home);
                             } else{
                               showAlert(context, response);
 
@@ -273,4 +285,6 @@ class LoginState extends State<Login> {
     }
     return double.tryParse(s) != null;
   }
+
+
 }
