@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled2/drawer/navigationDrawer.dart';
+import 'package:untitled2/home/homeDetailsScreen.dart';
 import 'package:untitled2/utils/appColor.dart';
 import 'package:untitled2/utils/appString.dart';
 
@@ -66,6 +67,7 @@ class HomeState extends State<Home>{
                         textStyle:
                         TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                     onPressed: () async {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeDetailsScreen()));
                     },
                   ),],
 

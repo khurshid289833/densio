@@ -189,7 +189,7 @@ class RegisterState extends State<Register>{
                   child: TextFormField(
                     controller: provider.passwordController,
                     validator: (val) {
-                      if (val!.length == 0 || val.length<7 || !val.contains(RegExp("^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]")))
+                      if (val!.length == 0 || val.length<8 || !val.contains(RegExp("^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]")))
                         return "Password must contain 7 characters and 1 numerical";
                       else
                         return null;
