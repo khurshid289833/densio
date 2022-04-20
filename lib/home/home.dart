@@ -56,11 +56,11 @@ class HomeState extends State<Home> {
                       ElevatedButton(
                         child: Text(
                           AppString.summary,
-                        ),
+                        style: TextStyle(color: Colors.white),),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.blueAccent,
                             textStyle: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold)),
+                                fontSize: 15, fontWeight: FontWeight.bold,)),
                         onPressed: () async {},
                       ),
                     ],
