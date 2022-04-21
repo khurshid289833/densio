@@ -15,5 +15,11 @@ class AppColor{
   static const Color cardShadow = const Color(0xFF9FA2BF);
   static const Color cardDivider = const Color(0xFF223354);
   static const Color calibrated = const Color(0xFF3BB900);
+  static const Color pendingColor = const Color(0xFFF49200);
+  static const Color approvedColor = const Color(0xFF3BB900);
+  static const Color rejectedColor = const Color(0xFFDA100B);
+  static const Color pendingBg = const Color(0xFFFFE2B6);
+  static const Color acceptBg = const Color(0xFFECFBE6);
+  static const Color rejectBg = const Color(0xFFFFCBCA);
 
 }
