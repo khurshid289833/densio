@@ -56,54 +56,17 @@ class HomeState extends State<Home> {
                       ElevatedButton(
                         child: Text(
                           AppString.summary,
-                        style: TextStyle(color: Colors.white),),
+                          style: TextStyle(color: Colors.white),),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.blueAccent,
                             textStyle: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold,)),
-                        onPressed: () async {},
+                              fontSize: 15, fontWeight: FontWeight.bold,)),
+                        onPressed: () async {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>HomeDetailsScreen()));
+                        },
                       ),
                     ],
                   ),
-              Container(
-                padding: EdgeInsets.fromLTRB(10,0,10,0),
-                color: Colors.white,
-                height: 70,
-                child: Row(
-
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                  Image.asset("assets/images/logo.png")
-                  ,
-                  GestureDetector(onTap:(){
-                    _key.currentState!.openDrawer();
-                  },child: Icon(Icons.sort))
-
-                ],),
-
-              ),
-
-              Container(
-                padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                height: 60,
-                color: AppColor.summaryBg,
-                child: Row(
-
-                  children: [ElevatedButton(
-
-                    child: Text(
-                      AppString.summary,
-
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.blueAccent ,
-                        textStyle:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                    onPressed: () async {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeDetailsScreen()));
-                    },
-                  ),],
-
                 ),
                 Card(
                   shadowColor: AppColor.cardShadow,

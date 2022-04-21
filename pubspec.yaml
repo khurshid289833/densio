@@ -74,13 +74,13 @@ flutter:
     - assets/images/refresh.png
     - assets/images/download.png
     - assets/images/downArrow.png
-
     - assets/images/green_rounded_dot.png
     - assets/images/light_green_dot.png
     - assets/images/petrol_pump.png
     - assets/images/selected_green_dot.png
     - assets/images/wifi.png
     - assets/images/drops.png
+    - assets/images/guarantee.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

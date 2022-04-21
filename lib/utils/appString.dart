@@ -58,8 +58,8 @@ class AppString{
 
   ///Home Details Page///
   static const String report = "Report";
-  static const String certificate = "Certificate";
-  static const String manufacturing = "Manufacturing";
+  static const String certificate = "Certificates";
+  static const String warranty = "Warranty";
 
   ///Summary View///
   static const String model = "Model: -";
@@ -73,7 +73,7 @@ class AppString{
   static const String viewReport = "View Report";
   static const String viewCertificate = "View Certificate";
   static const String latestResult = "Latest Results";
-  static const String sortBy = "Sort by ...";
+  static const String show = "Show";
   static const String accepted = "Accepted";
   static const String rejected = "Rejected";
 }

@@ -48,9 +48,9 @@ class RegisterState extends State<Register>{
               scrollDirection: Axis.vertical,
               physics: ScrollPhysics(),
               shrinkWrap: true,
-              padding: EdgeInsets.only(top: 50,left: 25,right: 25),
+              padding: EdgeInsets.only(top: 100,left: 25,right: 25),
               children: [
-                Image.asset("assets/images/logo.png"),
+                Image.asset("assets/images/logo.png",height: 100,width: 100),
                 Text(AppString.SignUp, style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold)),
                 Container(
                   //height: 50,
@@ -61,8 +61,10 @@ class RegisterState extends State<Register>{
                       FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
                     ], //
                     validator: (val) {
-                      if (val!.length == 0 || val.length<3)
+                      if (val!.length == 0)
                         return "Please enter a valid name";
+                      else if(val.length<3)
+                        return "First name must contain minimum 3 characters";
                       else
                         return null;
                     },
@@ -95,8 +97,10 @@ class RegisterState extends State<Register>{
                       FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
                     ], //
                     validator: (val) {
-                      if (val!.length == 0 || val.length<3)
+                      if (val!.length == 0)
                         return "Please enter a valid name";
+                      else if(val.length<3)
+                        return "Last name must contain minimum 3 characters";
                       else
                         return null;
                     },
@@ -129,8 +133,10 @@ class RegisterState extends State<Register>{
                       FilteringTextInputFormatter.digitsOnly
                     ], // O
                     validator: (val) {
-                      if (val!.length == 0 || val.length<10)
+                      if (val!.length == 0)
                         return "Please enter a valid mobile number";
+                      else if(val.length<10)
+                        return "Mobile number must contain minimum 10 digit";
                       else
                         return null;
                     },

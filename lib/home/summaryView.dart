@@ -1,7 +1,9 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled2/controller/summaryViewController.dart';
 import 'package:untitled2/utils/appColor.dart';
 import 'package:untitled2/utils/appString.dart';
+import 'package:provider/provider.dart';
 
 class SummaryView extends StatefulWidget {
   const SummaryView({Key? key}) : super(key: key);
@@ -11,26 +13,29 @@ class SummaryView extends StatefulWidget {
 }
 
 class _SummaryViewState extends State<SummaryView> {
-  List<String> dropdown = ["Last 7 Days","Last 15 Days","Last 30 Days"];
-  String _dropDownValue = "";
+  ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
+    SummaryViewController provider = Provider.of<SummaryViewController>(context);
     return Container(
       child: ListView(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         physics: ScrollPhysics(),
-        padding: EdgeInsets.only(top: 20,left: 15,right: 15),
+        padding: EdgeInsets.only(top: 20,left: 0,right: 0),
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("DDM-P-01",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
-              Image.asset("assets/images/cross.png"),
-            ],
+          Padding(
+            padding: EdgeInsets.only(left: 15,right: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("DDM-P-01",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
+                Image.asset("assets/images/cross.png"),
+              ],
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.only(top: 30,left: 15,right: 15),
             child: Row(
               children: [
                 Image.asset("assets/images/device.png",height: 18,width: 25),
@@ -41,7 +46,7 @@ class _SummaryViewState extends State<SummaryView> {
           ),
           Container(
             height: 40,
-            margin: EdgeInsets.only(top: 20,left: 25,right: 15),
+            margin: EdgeInsets.only(top: 20,left: 40,right: 30),
             padding: const EdgeInsets.only(top: 10,left: 10),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black.withOpacity(0.1)),
@@ -49,7 +54,7 @@ class _SummaryViewState extends State<SummaryView> {
             child: Text("${AppString.type} Petrol & Diesel",style: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor)),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.only(top: 30,left: 15,right: 15),
             child: Row(
               children: [
                 Image.asset("assets/images/refresh.png",height: 18,width: 25),
@@ -60,7 +65,7 @@ class _SummaryViewState extends State<SummaryView> {
           ),
           Container(
             height: 40,
-            margin: EdgeInsets.only(top: 20,left: 25,right: 15),
+            margin: EdgeInsets.only(top: 20,left: 40,right: 30),
             padding: const EdgeInsets.only(top: 10,left: 10),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black.withOpacity(0.1)),
@@ -69,7 +74,7 @@ class _SummaryViewState extends State<SummaryView> {
           ),
           Container(
             height: 40,
-            margin: EdgeInsets.only(top: 20,left: 25,right: 15),
+            margin: EdgeInsets.only(top: 20,left: 40,right: 30),
             padding: const EdgeInsets.only(left: 10,right: 10),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black.withOpacity(0.1)),
@@ -100,7 +105,7 @@ class _SummaryViewState extends State<SummaryView> {
           ),
           Container(
             height: 40,
-            margin: EdgeInsets.only(top: 20,left: 25,right: 15),
+            margin: EdgeInsets.only(top: 20,left: 40,right: 30),
             padding: const EdgeInsets.only(top: 10,left: 10),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black.withOpacity(0.1)),
@@ -108,7 +113,7 @@ class _SummaryViewState extends State<SummaryView> {
             child: Text("${AppString.nextCalibrationDate} 23/02/2022",style: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor)),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.only(top: 30,left: 15,right: 15),
             child: Row(
               children: [
                 Image.asset("assets/images/person.png",height: 18,width: 25),
@@ -119,7 +124,7 @@ class _SummaryViewState extends State<SummaryView> {
           ),
           Container(
             height: 40,
-            margin: EdgeInsets.only(top: 20,left: 25,right: 15),
+            margin: EdgeInsets.only(top: 20,left: 40,right: 30),
             padding: const EdgeInsets.only(left: 10,right: 10),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black.withOpacity(0.1)),
@@ -149,158 +154,165 @@ class _SummaryViewState extends State<SummaryView> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Text(AppString.latestResult,style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
-                    Container(
-                      height: 26,
-                      width: 26,
-                      margin: EdgeInsets.only(left: 10),
-                      decoration: BoxDecoration(
-                        color: AppColor.lightBlueBackground,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Image.asset("assets/images/download.png"),
-                    ),
-                  ],
-                ),
-                Container(
-                  width: 104,
-                  height: 26,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: Color(0xFFCCCEDD)),
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: ButtonTheme(
-                      alignedDropdown: true,
-                      child: DropdownButton<String>(
-                        isExpanded: true,
-                        items: dropdown.map((item) {
-                          return DropdownMenuItem<String>(
-                            value: item,
-                            child: Column(
-                              children: [
-                                Text(item),
-                                Divider(color: Colors.black),
-                              ],
+            padding: const EdgeInsets.only(top: 15,left: 5,right: 5),
+            child: Card(
+              shadowColor: AppColor.cardShadow,
+              elevation: 2,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20,left: 10,right: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Text(AppString.latestResult,style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
+                            Container(
+                              height: 26,
+                              width: 26,
+                              margin: EdgeInsets.only(left: 10),
+                              decoration: BoxDecoration(
+                                color: AppColor.lightBlueBackground,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Image.asset("assets/images/download.png"),
                             ),
+                          ],
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(6),
+                            border: Border.all(color: Color(0xFFCCCEDD)),
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton2(
+                              icon: Image.asset("assets/images/downArrow.png"),
+                              hint: Text(AppString.show,style: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor,fontWeight: FontWeight.bold)),
+                              items: provider.items.map((item) => DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Container(
+                                      child: Column(
+                                        children: [
+                                          Text(item, style: const TextStyle(fontSize: 12,fontWeight: FontWeight.w500)),
+                                          Divider(color: Colors.black,thickness: 0.1),
+                                        ],
+                                      ),
+                                    ),
+                                  )).toList(),
+                              //value: selectedValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  provider.selectedValue = value as String;
+                                });
+                              },
+                              dropdownDecoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                color: Colors.white,
+                              ),
+                              itemPadding: const EdgeInsets.only(left: 0, right: 0,top: 5),
+                              buttonPadding: const EdgeInsets.only(left: 10, right: 10),
+                              buttonHeight: 26,
+                              buttonWidth: 110,
+                              itemHeight: 40,
+                              dropdownWidth: 150,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    color: AppColor.textFieldBorderColor,
+                    height: 30,
+                    thickness: 0.1,
+                  ),
+                  Scrollbar(
+                    controller: _scrollController,
+                    isAlwaysShown: true,
+                    showTrackOnHover: true,
+                    thickness: 5,
+                    child: Container(
+                      height: 500,
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        itemCount: 5,
+                        itemBuilder: (context,index){
+                          return Column(
+                            children: [
+                              Container(
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                         height: 40,
+                                         width: 40,
+                                        padding: EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: AppColor.lightGreenBackground
+                                        ),
+                                        child: Image.asset("assets/images/pump.png",height: 24,width: 24),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 5,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(top: index==0?10:5,left: 10),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("DDM-P-01",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
+                                            SizedBox(height: 5),
+                                            Text("25 Jul 2021 | 11:45 PM",style: TextStyle(fontSize: 10,fontWeight: FontWeight.w400,color: AppColor.textFieldBorderColor)),
+                                            SizedBox(height: 20),
+                                            Text("739.06 kg/m3",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
+                                            SizedBox(height: 5),
+                                            Text("26.75 c",style: TextStyle(fontSize: 10,fontWeight: FontWeight.w400,color: AppColor.textFieldBorderColor)),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 4,
+                                      child: Container(
+                                        height: 27,
+                                        //width: 90,
+                                        margin: EdgeInsets.only(right: 40),
+                                        decoration: BoxDecoration(
+                                          color: index.isOdd?AppColor.lightGreenBackground:AppColor.lightRedBackground,
+                                          borderRadius: BorderRadius.circular(3),
+                                        ),
+                                        child: Center(child: Text(index.isOdd?"Accepted":"Rejected",style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold,color: index.isOdd?AppColor.greenText:AppColor.redText))),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 15,right: 15),
+                                child: Divider(
+                                  color: AppColor.textFieldBorderColor,
+                                  height: 25,
+                                  thickness: 0.1,
+                                ),
+                              ),
+                            ],
                           );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            _dropDownValue = value!;
-                          });
                         },
-                        style: TextStyle(fontSize: 12,color: Colors.black),
-                        icon: Image.asset("assets/images/downArrow.png"),
-                        hint: Text(AppString.sortBy,style: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor,fontWeight: FontWeight.bold)),
                       ),
                     ),
                   ),
-                )
-              ],
+                ],
+              ),
             ),
           ),
-          Container(height: 200),
-          // Container(
-          //   child: Center(
-          //     child: DropdownButtonHideUnderline(
-          //       child: DropdownButton2(
-          //         isExpanded: true,
-          //         hint: Row(
-          //           children: const [
-          //             Icon(
-          //               Icons.list,
-          //               size: 16,
-          //               color: Colors.yellow,
-          //             ),
-          //             SizedBox(
-          //               width: 4,
-          //             ),
-          //             Expanded(
-          //               child: Text(
-          //                 'Select Item',
-          //                 style: TextStyle(
-          //                   fontSize: 14,
-          //                   fontWeight: FontWeight.bold,
-          //                   color: Colors.yellow,
-          //                 ),
-          //                 overflow: TextOverflow.ellipsis,
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //         items: items
-          //             .map((item) =>
-          //             DropdownMenuItem<String>(
-          //               value: item,
-          //               child: Text(
-          //                 item,
-          //                 style: const TextStyle(
-          //                   fontSize: 14,
-          //                   fontWeight: FontWeight.bold,
-          //                   color: Colors.white,
-          //                 ),
-          //                 overflow: TextOverflow.ellipsis,
-          //               ),
-          //             ))
-          //             .toList(),
-          //         value: selectedValue,
-          //         onChanged: (value) {
-          //           setState(() {
-          //             selectedValue = value as String;
-          //           });
-          //         },
-          //         icon: const Icon(
-          //           Icons.arrow_forward_ios_outlined,
-          //         ),
-          //         iconSize: 14,
-          //         iconEnabledColor: Colors.yellow,
-          //         iconDisabledColor: Colors.grey,
-          //         buttonHeight: 50,
-          //         buttonWidth: 160,
-          //         buttonPadding: const EdgeInsets.only(left: 14, right: 14),
-          //         buttonDecoration: BoxDecoration(
-          //           borderRadius: BorderRadius.circular(14),
-          //           border: Border.all(
-          //             color: Colors.black26,
-          //           ),
-          //           color: Colors.redAccent,
-          //         ),
-          //         buttonElevation: 2,
-          //         itemHeight: 40,
-          //         itemPadding: const EdgeInsets.only(left: 14, right: 14),
-          //         dropdownMaxHeight: 200,
-          //         dropdownWidth: 200,
-          //         dropdownPadding: null,
-          //         dropdownDecoration: BoxDecoration(
-          //           borderRadius: BorderRadius.circular(14),
-          //           color: Colors.redAccent,
-          //         ),
-          //         dropdownElevation: 8,
-          //         scrollbarRadius: const Radius.circular(40),
-          //         scrollbarThickness: 6,
-          //         scrollbarAlwaysShow: true,
-          //         offset: const Offset(-20, 0),
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
   }
-  String? selectedValue;
-  List<String> items = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
-  ];
-
 }

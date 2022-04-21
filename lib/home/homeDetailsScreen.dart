@@ -65,79 +65,72 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(10, 15, 10, 10),
+                padding: EdgeInsets.fromLTRB(20, 15, 20, 10),
                 height: 65,
                 width: screenWidth,
                 color: AppColor.summaryBg,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        InkWell(
-                          onTap: (){
-                            _pageController.animateToPage(0, duration: Duration(milliseconds: 500), curve: Curves.ease);
-                          },
-                          child: Container(
-                            width: screenWidth*0.23,
-                            child: Column(
-                              children: [
-                                Image.asset("assets/images/summary_icon.png",color: _selectedIndex==0?AppColor.blueColor:AppColor.textFieldBorderColor,height: 20,width: 20),
-                                SizedBox(height: 4),
-                                Text(AppString.summary,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w700,color: _selectedIndex==0?AppColor.blueColor:AppColor.textFieldBorderColor)),
-                              ],
-                            ),
-                          ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    InkWell(
+                      onTap: (){
+                        _pageController.animateToPage(0, duration: Duration(milliseconds: 500), curve: Curves.ease);
+                      },
+                      child: Container(
+                        //width: screenWidth*0.23,
+                        child: Column(
+                          children: [
+                            Image.asset("assets/images/summary_icon.png",color: _selectedIndex==0?AppColor.blueColor:AppColor.textFieldBorderColor,height: 20,width: 20),
+                            SizedBox(height: 4),
+                            Text(AppString.summary,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w700,color: _selectedIndex==0?AppColor.blueColor:AppColor.textFieldBorderColor)),
+                          ],
                         ),
-                        InkWell(
-                          onTap: (){
-                            _pageController.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.ease);
-                          },
-                          child: Container(
-                            width: screenWidth*0.23,
-                            child: Column(
-                              children: [
-                                Image.asset("assets/images/report_icon.png",color: _selectedIndex==1?AppColor.blueColor:AppColor.textFieldBorderColor,height: 20,width: 25,fit: BoxFit.cover,),
-                                SizedBox(height: 4),
-                                Text(AppString.report,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w700,color: _selectedIndex==1?AppColor.blueColor:AppColor.textFieldBorderColor)),
-                              ],
-                            ),
-                          ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        _pageController.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.ease);
+                      },
+                      child: Container(
+                        //width: screenWidth*0.23,
+                        child: Column(
+                          children: [
+                            Image.asset("assets/images/report_icon.png",color: _selectedIndex==1?AppColor.blueColor:AppColor.textFieldBorderColor,height: 20,width: 25,fit: BoxFit.cover,),
+                            SizedBox(height: 4),
+                            Text(AppString.report,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w700,color: _selectedIndex==1?AppColor.blueColor:AppColor.textFieldBorderColor)),
+                          ],
                         ),
-                        InkWell(
-                          onTap: (){
-                            _pageController.animateToPage(2, duration: Duration(milliseconds: 500), curve: Curves.ease);
-                          },
-                          child: Container(
-                            width: screenWidth*0.23,
-                            child: Column(
-                              children: [
-                                Image.asset("assets/images/certificate.png",color: _selectedIndex==2?AppColor.blueColor:AppColor.textFieldBorderColor,height: 22,width: 20,fit: BoxFit.cover,),
-                                SizedBox(height: 2),
-                                Text(AppString.certificate,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w700,color: _selectedIndex==2?AppColor.blueColor:AppColor.textFieldBorderColor)),
-                              ],
-                            ),
-                          ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        _pageController.animateToPage(2, duration: Duration(milliseconds: 500), curve: Curves.ease);
+                      },
+                      child: Container(
+                        //width: screenWidth*0.23,
+                        child: Column(
+                          children: [
+                            Image.asset("assets/images/certificate.png",color: _selectedIndex==2?AppColor.blueColor:AppColor.textFieldBorderColor,height: 22,width: 20,fit: BoxFit.cover,),
+                            SizedBox(height: 2),
+                            Text(AppString.certificate,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w700,color: _selectedIndex==2?AppColor.blueColor:AppColor.textFieldBorderColor)),
+                          ],
                         ),
-                        InkWell(
-                          onTap: (){
-                            _pageController.animateToPage(3, duration: Duration(milliseconds: 500), curve: Curves.ease);
-                          },
-                          child: Container(
-                            width: screenWidth*0.23,
-                            child: Column(
-                              children: [
-                                Image.asset("assets/images/Manufacturing_icon.png",color: _selectedIndex==3?AppColor.blueColor:AppColor.textFieldBorderColor,height: 20,width: 20),
-                                SizedBox(height: 4),
-                                Text(AppString.manufacturing,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w700,color: _selectedIndex==3?AppColor.blueColor:AppColor.textFieldBorderColor)),
-                              ],
-                            ),
-                          ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        _pageController.animateToPage(3, duration: Duration(milliseconds: 500), curve: Curves.ease);
+                      },
+                      child: Container(
+                        //width: screenWidth*0.23,
+                        child: Column(
+                          children: [
+                            Image.asset("assets/images/guarantee.png",color: _selectedIndex==3?AppColor.blueColor:AppColor.textFieldBorderColor,height: 22,width: 28,fit: BoxFit.cover,),
+                            SizedBox(height: 2),
+                            Text(AppString.warranty,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w700,color: _selectedIndex==3?AppColor.blueColor:AppColor.textFieldBorderColor)),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
@@ -146,11 +139,12 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                 flex: 40,
                 child: PageView(
                   controller: _pageController,
+                  physics: NeverScrollableScrollPhysics(),
                   children: [
                     SummaryView(),
-                    Text("Page Two"),
-                    Text("Page Three"),
-                    Text("Page four"),
+                    Center(child: Text("Page Two")),
+                    Center(child: Text("Page Three")),
+                    Center(child: Text("Page four")),
                   ],
                 ),
               ),
