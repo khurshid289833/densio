@@ -11,6 +11,7 @@ class ReportView extends StatefulWidget {
 
 class _ReportViewState extends State<ReportView> {
   ScrollController _scrollController = ScrollController();
+  TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,11 +39,45 @@ class _ReportViewState extends State<ReportView> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 20,left: 20,right: 20),
+                    padding: const EdgeInsets.only(top: 20,left: 20,right: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(AppString.reports,style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
+                        Text(AppString.reports,style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
+                        Container(
+                          height: 36,
+                          width: 129,
+                          child: TextFormField(
+                            controller: _searchController,
+                            cursorColor: Colors.black38,
+                            decoration: InputDecoration(
+                              hintText: AppString.search,
+                              hintStyle: TextStyle(fontSize: 15,color: AppColor.textFieldBorderColor),
+                              contentPadding: EdgeInsets.only(top: 0,left: 0,bottom: 0,right: 0),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color:  Color(0xFFCCCEDD), width: 1),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color:  Color(0xFFCCCEDD), width: 1),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color:  Color(0xFFCCCEDD), width: 1),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              focusedErrorBorder:  OutlineInputBorder(
+                                borderSide: BorderSide(color: Color(0xFFCCCEDD), width: 1),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              prefixIcon: Icon(Icons.search,size: 25,color: AppColor.blueColor),
+                              prefixIconConstraints: BoxConstraints(
+                                maxWidth: 40,
+                                minWidth: 40,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
