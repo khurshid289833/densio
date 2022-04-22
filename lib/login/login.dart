@@ -9,10 +9,9 @@ import 'package:untitled2/utils/InputDecoration.dart';
 import 'package:untitled2/utils/appColor.dart';
 import 'package:untitled2/utils/appString.dart';
 import 'package:untitled2/drawer/pageRoutes.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled2/widget/alertDialog.dart';
 import 'package:untitled2/widget/loader.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 class Login extends StatefulWidget {
   static const String routeName = '/login';
 
@@ -80,7 +79,7 @@ class LoginState extends State<Login> {
                         if(value!.isEmpty)
                         {
                           return AppString.emailRequired;
-                        } if(value.contains("@") && EmailValidator.validate(value!)==false){
+                        } if(value.contains("@") && EmailValidator.validate(value)==false){
                           return AppString.invalidEmail;
                         }if(isNumeric(value)==true && value.length!=10){
                           return AppString.invalidNumber;
@@ -216,6 +215,12 @@ class LoginState extends State<Login> {
                           setState(() {
                             isLoading=false;
                             if(response == "User logged in successfully"){
+                              Fluttertoast.showToast(
+                                  msg: "User logged in successfully",  // message
+                                  toastLength: Toast.LENGTH_SHORT, // length
+                                  gravity: ToastGravity.CENTER,    // location
+                                  timeInSecForIosWeb: 1               // duration
+                              );
                               Navigator.pushReplacementNamed(context, pageRoutes.home);
                             } else{
                               showAlert(context, response);
