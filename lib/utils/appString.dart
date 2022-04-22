@@ -76,4 +76,12 @@ class AppString{
   static const String show = "Show";
   static const String accepted = "Accepted";
   static const String rejected = "Rejected";
+
+  //Certificate
+  static const String isoCeritificate = "ISO Certificate";
+  static const String id = "ID : ";
+  static const String name = "Name : ";
+  static const String date = "Date : ";
+  static const String caliberationCertificate = "Caliberation Certificate";
+
 }

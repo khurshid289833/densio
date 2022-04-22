@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled2/drawer/navigationDrawer.dart';
+import 'package:untitled2/home/certificates.dart';
 import 'package:untitled2/home/summaryView.dart';
 import 'package:untitled2/utils/appColor.dart';
 import 'package:untitled2/utils/appString.dart';
@@ -143,7 +144,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                   children: [
                     SummaryView(),
                     Center(child: Text("Page Two")),
-                    Center(child: Text("Page Three")),
+                   Certificate(),
                     Center(child: Text("Page four")),
                   ],
                 ),
