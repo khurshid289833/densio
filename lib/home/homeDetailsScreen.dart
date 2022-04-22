@@ -148,7 +148,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                     ReportView(),
                   Certificate(),
                 WarrantyView(),
-
                    ],
                 ),
               ),
