@@ -96,4 +96,12 @@ class AppString{
 
 
 
+
+  //Certificate
+  static const String isoCeritificate = "ISO Certificate";
+  static const String id = "ID : ";
+  static const String name = "Name : ";
+  static const String date = "Date : ";
+  static const String caliberationCertificate = "Caliberation Certificate";
+
 }
