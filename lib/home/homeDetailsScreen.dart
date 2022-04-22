@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled2/drawer/navigationDrawer.dart';
+import 'package:untitled2/home/reportView.dart';
 import 'package:untitled2/home/summaryView.dart';
 import 'package:untitled2/utils/appColor.dart';
 import 'package:untitled2/utils/appString.dart';
@@ -142,7 +143,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                   physics: NeverScrollableScrollPhysics(),
                   children: [
                     SummaryView(),
-                    Center(child: Text("Page Two")),
+                    ReportView(),
                     Center(child: Text("Page Three")),
                     Center(child: Text("Page four")),
                   ],

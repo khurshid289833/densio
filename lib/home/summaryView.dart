@@ -22,7 +22,7 @@ class _SummaryViewState extends State<SummaryView> {
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         physics: ScrollPhysics(),
-        padding: EdgeInsets.only(top: 20,left: 0,right: 0),
+        padding: EdgeInsets.only(top: 20),
         children: [
           Padding(
             padding: EdgeInsets.only(left: 15,right: 15),

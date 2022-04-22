@@ -76,4 +76,7 @@ class AppString{
   static const String show = "Show";
   static const String accepted = "Accepted";
   static const String rejected = "Rejected";
+
+  ///Report View///
+  static const String reports = "Reports";
 }
