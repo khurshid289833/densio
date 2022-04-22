@@ -275,6 +275,7 @@ class HomeState extends State<Home> {
                 ],
               ),
             ), value: 'Pending'),
+
         PopupMenuItem<String>(
             child: Container(
               decoration: BoxDecoration(
@@ -292,6 +293,7 @@ class HomeState extends State<Home> {
                 ],
               ),
             ), value: 'Accept'),
+
         PopupMenuItem<String>(
             child:  Container(
               decoration: BoxDecoration(
