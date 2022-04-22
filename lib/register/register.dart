@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:untitled2/drawer/pageRoutes.dart';
 import 'package:untitled2/widget/alertDialog.dart';
 import 'package:untitled2/widget/loader.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Register extends StatefulWidget{
   @override
@@ -172,7 +173,7 @@ class RegisterState extends State<Register>{
                     validator: (value) => EmailValidator.validate(value!) ? null : "Please enter a valid email address",
                     cursorColor: Colors.black38,
                     decoration: InputDecoration(
-                      hintText: AppString.emailAddress,
+                      hintText: AppString.emailAddressOnly,
                       hintStyle: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor,letterSpacing: 0.9),
                       contentPadding: EdgeInsets.only(top: 0,left: 15,bottom: 0),
                       focusedBorder: OutlineInputBorder(
@@ -362,8 +363,15 @@ class RegisterState extends State<Register>{
                             provider.passwordController.text
                         );
                         provider.changeLoadingStatus(false);
-                        if(response == "User registered successfully")
+                        if(response == "User registered successfully"){
+                          Fluttertoast.showToast(
+                              msg: "Sign up successfully",  // message
+                              toastLength: Toast.LENGTH_SHORT, // length
+                              gravity: ToastGravity.BOTTOM,    // location
+                              timeInSecForIosWeb: 1               // duration
+                          );
                           Navigator.pushReplacementNamed(context, pageRoutes.home);
+                        }
                         else if(response == "Contact number already exists")
                           showAlert(context, "Contact number already exists");
                         else if(response == "Email already exists")

@@ -4,6 +4,7 @@ class AppString{
   static const String SignUp = "Sign Up";
   static const String SignIn = "Sign In";
   static const String emailAddress = "Email address/Mobile number...";
+  static const String emailAddressOnly = "Email Address";
   static const String password = "Password";
   static const String rememberMe = "Remember me";
   static const String forgotPassword = "Forgot Password?";
@@ -76,6 +77,25 @@ class AppString{
   static const String show = "Show";
   static const String accepted = "Accepted";
   static const String rejected = "Rejected";
+
+  ///Report View///
+  static const String reports = "Reports";
+  static const String search = "Search...";
+
+  ///Warranty View///
+  static const String warrantyDetails = "Warranty Details";
+  static const String dateOfPurchase = "Date of Purchase :";
+  static const String warrantyExpiry = "Warranty Expiry :";
+  static const String extendWarranty = "Extend Warranty";
+  static const String customerSupport = "Customer Support";
+
+
+
+
+
+
+
+
 
   //Certificate
   static const String isoCeritificate = "ISO Certificate";
