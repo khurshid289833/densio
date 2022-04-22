@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled2/controller/homeDetailsController.dart';
 import 'package:untitled2/controller/summaryViewController.dart';
 import 'package:untitled2/login/login.dart';
 import 'package:untitled2/drawer/pageRoutes.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<RegisterController>(create: (_) => RegisterController()),
         ChangeNotifierProvider<SummaryViewController>(create: (_) => SummaryViewController()),
+        ChangeNotifierProvider<HomeDetailsController>(create: (_) => HomeDetailsController())
       ],
 
       child: MaterialApp(

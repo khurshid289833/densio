@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:untitled2/controller/homeDetailsController.dart';
 import 'package:untitled2/drawer/navigationDrawer.dart';
 import 'package:untitled2/home/reportView.dart';
 import 'package:untitled2/home/summaryView.dart';
 import 'package:untitled2/home/warrantyView.dart';
 import 'package:untitled2/utils/appColor.dart';
 import 'package:untitled2/utils/appString.dart';
+import 'package:provider/provider.dart';
 
 class HomeDetailsScreen extends StatefulWidget {
   const HomeDetailsScreen({Key? key}) : super(key: key);
@@ -16,27 +18,30 @@ class HomeDetailsScreen extends StatefulWidget {
 class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   int _selectedIndex = 0;
-  late PageController _pageController;
+
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
-    _pageController.addListener(() {
+    HomeDetailsController provider = Provider.of<HomeDetailsController>(context,listen: false);
+    provider.pageController = PageController();
+    provider.pageController.addListener(() {
       setState(() {
-        _selectedIndex = _pageController.page!.toInt();
+        _selectedIndex = provider.pageController.page!.toInt();
       });
     });
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
+    HomeDetailsController provider = Provider.of<HomeDetailsController>(context,listen: false);
+    provider.pageController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    HomeDetailsController provider = Provider.of<HomeDetailsController>(context);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -76,7 +81,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                   children: <Widget>[
                     InkWell(
                       onTap: (){
-                        _pageController.animateToPage(0, duration: Duration(milliseconds: 500), curve: Curves.ease);
+                        provider.pageController.animateToPage(0, duration: Duration(milliseconds: 500), curve: Curves.ease);
                       },
                       child: Container(
                         //width: screenWidth*0.23,
@@ -91,7 +96,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                     ),
                     InkWell(
                       onTap: (){
-                        _pageController.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.ease);
+                        provider.pageController.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.ease);
                       },
                       child: Container(
                         //width: screenWidth*0.23,
@@ -106,7 +111,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                     ),
                     InkWell(
                       onTap: (){
-                        _pageController.animateToPage(2, duration: Duration(milliseconds: 500), curve: Curves.ease);
+                        provider.pageController.animateToPage(2, duration: Duration(milliseconds: 500), curve: Curves.ease);
                       },
                       child: Container(
                         //width: screenWidth*0.23,
@@ -121,7 +126,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                     ),
                     InkWell(
                       onTap: (){
-                        _pageController.animateToPage(3, duration: Duration(milliseconds: 500), curve: Curves.ease);
+                        provider.pageController.animateToPage(3, duration: Duration(milliseconds: 500), curve: Curves.ease);
                       },
                       child: Container(
                         //width: screenWidth*0.23,
@@ -140,7 +145,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
               Expanded(
                 flex: 40,
                 child: PageView(
-                  controller: _pageController,
+                  controller: provider.pageController,
                   physics: NeverScrollableScrollPhysics(),
                   children: [
                     SummaryView(),
