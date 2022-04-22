@@ -56,6 +56,24 @@ class AppString{
   //Home
   static const String summary = "Summary";
 
+  ///Home Details Page///
+  static const String report = "Report";
+  static const String certificate = "Certificates";
+  static const String warranty = "Warranty";
 
-
+  ///Summary View///
+  static const String model = "Model: -";
+  static const String type = "Type: -";
+  static const String deviceCalibrationDetails = "Device Calibration Details";
+  static const String lastCalibratedDate = "Last Calibrated Date : -";
+  static const String calibrationReport = "Calibration Report";
+  static const String nextCalibrationDate = "Next Calibration Date :-";
+  static const String deviceCertification = "Device Certification";
+  static const String deviceCertificateISO = "Device Certificate - ISO";
+  static const String viewReport = "View Report";
+  static const String viewCertificate = "View Certificate";
+  static const String latestResult = "Latest Results";
+  static const String show = "Show";
+  static const String accepted = "Accepted";
+  static const String rejected = "Rejected";
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:untitled2/services/registerService.dart';
 
 class RegisterController extends ChangeNotifier {
 
