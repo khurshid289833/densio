@@ -33,9 +33,16 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
     });
   }
 
+  late HomeDetailsController provider;
+
+  @override
+  void didChangeDependencies() {
+    provider = Provider.of<HomeDetailsController>(context, listen: false);
+    super.didChangeDependencies();
+  }
+
   @override
   void dispose() {
-    HomeDetailsController provider = Provider.of<HomeDetailsController>(context,listen: false);
     provider.pageController.dispose();
     super.dispose();
   }
