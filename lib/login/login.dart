@@ -79,7 +79,7 @@ class LoginState extends State<Login> {
                         if(value!.isEmpty)
                         {
                           return AppString.emailRequired;
-                        } if(value.contains("@") && EmailValidator.validate(value!)==false){
+                        } if(value.contains("@") && EmailValidator.validate(value)==false){
                           return AppString.invalidEmail;
                         }if(isNumeric(value)==true && value.length!=10){
                           return AppString.invalidNumber;

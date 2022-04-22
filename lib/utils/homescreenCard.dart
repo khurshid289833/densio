@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../home/homeDetailsScreen.dart';
 import 'appColor.dart';
 
-Card homeScreenCard(int index) {
+Card homeScreenCard(int index,BuildContext context) {
   return Card(
     shadowColor: AppColor.cardShadow,
     margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
@@ -19,7 +20,7 @@ Card homeScreenCard(int index) {
             height: 6,
           ),
           Text(
-            "Device M -"+(index+1).toString(),
+            "Device M -" + (index + 1).toString(),
             style: TextStyle(
                 color: AppColor.cardDivider,
                 fontWeight: FontWeight.bold,
@@ -96,14 +97,16 @@ Card homeScreenCard(int index) {
                   children: [
                     Text(
                       "Connected",
-                      style: TextStyle(color: AppColor.calibrated, fontSize: 15),
+                      style: TextStyle(
+                          color: AppColor.calibrated, fontSize: 15),
                     ),
                     SizedBox(
                       height: 5,
                     ),
                     Text(
                       "Online",
-                      style: TextStyle(color: AppColor.cardShadow, fontSize: 13),
+                      style: TextStyle(
+                          color: AppColor.cardShadow, fontSize: 13),
                     ),
                   ],
                 ),
@@ -112,7 +115,11 @@ Card homeScreenCard(int index) {
               Image.asset('assets/images/wifi.png', height: 17),
               SizedBox(
                 width: 20,
-              ),Image.asset('assets/images/viewmore.png', width:90,height: 30),
+              ),
+              GestureDetector(onTap:()async{
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>HomeDetailsScreen()));
+              }, child: Image.asset(
+                  'assets/images/viewmore.png', width: 90, height: 30)),
             ],
           ),
 

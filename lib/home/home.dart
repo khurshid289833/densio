@@ -101,7 +101,7 @@ class HomeState extends State<Home> {
                               itemBuilder: (BuildContext context, int itemIndex,
                                   int pageViewIndex) =>
                                   Container(
-                                    child: homeScreenCard(itemIndex),
+                                    child: homeScreenCard(itemIndex,context),
                                   ),
                               options: CarouselOptions(
                                 height: 300.0,
