@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled2/controller/homeDetailsController.dart';
 import 'package:untitled2/controller/summaryViewController.dart';
 import 'package:untitled2/utils/appColor.dart';
 import 'package:untitled2/utils/appString.dart';
@@ -17,6 +18,7 @@ class _SummaryViewState extends State<SummaryView> {
   @override
   Widget build(BuildContext context) {
     SummaryViewController provider = Provider.of<SummaryViewController>(context);
+    HomeDetailsController providerHomeDetails = Provider.of<HomeDetailsController>(context);
     return Container(
       child: ListView(
         scrollDirection: Axis.vertical,
@@ -97,7 +99,9 @@ class _SummaryViewState extends State<SummaryView> {
                     child: Text(AppString.viewReport,
                       style: TextStyle(fontSize: 9,fontWeight: FontWeight.bold,color: AppColor.blueColor),
                     ),
-                    onPressed: (){},
+                    onPressed: (){
+                      providerHomeDetails.pageController.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.ease);
+                    },
                   ),
                 ),
               ],
@@ -147,7 +151,9 @@ class _SummaryViewState extends State<SummaryView> {
                     child: Text(AppString.viewCertificate,
                       style: TextStyle(fontSize: 9,fontWeight: FontWeight.bold,color: AppColor.blueColor),
                     ),
-                    onPressed: (){},
+                    onPressed: (){
+                      providerHomeDetails.pageController.animateToPage(2, duration: Duration(milliseconds: 500), curve: Curves.ease);
+                    },
                   ),
                 ),
               ],

@@ -5,7 +5,7 @@ import 'package:untitled2/utils/appColor.dart';
 Widget pending() {
   return Container(
     padding: EdgeInsets.fromLTRB(15, 6, 15, 6),
-    width: 100,
+    width: 110,
 
     decoration: BoxDecoration(
       color: AppColor.pendingBg,

@@ -223,7 +223,7 @@ class HomeState extends State<Home> {
                                             },
                                             child: index.isOdd?pending():Container(
                                              padding: EdgeInsets.fromLTRB(15, 6, 15, 6),
-                                              width: 100,
+                                              width: 110,
 
                                               decoration: BoxDecoration(
                                                 color: index.isOdd?AppColor.acceptBg:AppColor.rejectBg,
