@@ -246,7 +246,10 @@ class HomeState extends State<Home> {
                                                 ),
                                                 GestureDetector(
                                                   onTapDown: (TapDownDetails details){
+                                                  if(latestResults!.data![index].approvedStatus=="pending"){
                                                     _showPopupMenu(details.globalPosition);
+
+                                                  }
                                                   },
                                                   child: getStatus(latestResults!.data![index].approvedStatus!),
                                                 ),
@@ -277,6 +280,7 @@ class HomeState extends State<Home> {
         ));
   }
 Widget getStatus(String value){
+    print(value);
     if(value == "approve"){
    return   Container(
      padding: EdgeInsets.fromLTRB(15, 6, 15, 6),
