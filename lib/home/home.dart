@@ -41,6 +41,7 @@ class HomeState extends State<Home> {
                     Image.asset("assets/images/logo.png"),
                     GestureDetector(
                         onTap: () {
+
                           _key.currentState!.openDrawer();
                         },
                         child: Image.asset("assets/images/burger_icon.png",height: 25,))
