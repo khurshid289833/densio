@@ -271,7 +271,7 @@ class HomeState extends State<Home> {
                   }
 
                   // By default, show a loading spinner.
-                  return const CircularProgressIndicator();
+                  return Center(child: const CircularProgressIndicator(color: AppColor.primarySwatchColor,));
                 },
 
               )
