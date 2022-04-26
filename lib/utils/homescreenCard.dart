@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:untitled2/model/AllDevicesResponse.dart';
 
 import '../home/homeDetailsScreen.dart';
 import 'appColor.dart';
 
-Card homeScreenCard(int index,BuildContext context) {
+Card homeScreenCard(int index,BuildContext context,Data? data) {
   return Card(
     shadowColor: AppColor.cardShadow,
     margin: EdgeInsets.fromLTRB(10, 20, 10, 20),
@@ -20,7 +21,7 @@ Card homeScreenCard(int index,BuildContext context) {
             height: 6,
           ),
           Text(
-            "Device M -" + (index + 1).toString(),
+            data!.deviceName!,
             style: TextStyle(
                 color: AppColor.cardDivider,
                 fontWeight: FontWeight.bold,
@@ -46,7 +47,7 @@ Card homeScreenCard(int index,BuildContext context) {
                 width: 10,
               ),
               Text(
-                "Petrol",
+                data.slotInfo![0].liquidType.toString(),
                 style: TextStyle(
                     color: AppColor.cardShadow,
                     fontWeight: FontWeight.bold,

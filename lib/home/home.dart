@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled2/drawer/navigationDrawer.dart';
+import 'package:untitled2/model/AllDevicesResponse.dart';
+import 'package:untitled2/model/LatestResultResponse.dart';
+import 'package:untitled2/services/HomeService.dart';
 import 'package:untitled2/utils/appColor.dart';
 import 'package:untitled2/utils/appString.dart';
 import 'package:untitled2/utils/homescreenCard.dart';
@@ -17,12 +20,30 @@ class Home extends StatefulWidget {
     return HomeState();
   }
 }
+HomeService _homeService = HomeService();
 
 class HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
+  late Future<AllDevicesResponse?> futureDevices;
+  late LatestResultResponse? latestResults;
+
+
 
   @override
+  void initState() {
+    getLatestResults();
+
+    futureDevices = _homeService.allDevices();
+    super.initState();
+  }
+  getLatestResults() async {
+    latestResults = await _homeService.latestResult();
+
+  }
+  @override
   Widget build(BuildContext context) {
+
+
     return new Scaffold(
         key: _key,
         drawer: navigationDrawer(),
@@ -70,186 +91,225 @@ class HomeState extends State<Home> {
                   ],
                 ),
               ),
-              Expanded(
-                child: SingleChildScrollView(
-                
+              FutureBuilder<AllDevicesResponse?>(
+                  future: futureDevices,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Expanded(
+                      child: SingleChildScrollView(
 
-                  child: Column(
-                    children: [
-                      Card(
-                        shadowColor: AppColor.cardShadow,
-                        margin: EdgeInsets.fromLTRB(10, 10, 10, 5),
+
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding:
-                              const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                              child: Text(
-                                "Device Status",
-                                style: TextStyle(
-                                    color: AppColor.cardDivider,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                            ),
-                            Divider(
-                              color: AppColor.greyColor,
-                              height: 1,
-                            ),
-                            CarouselSlider.builder(
-                              itemCount: 10,
-                              itemBuilder: (BuildContext context, int itemIndex,
-                                  int pageViewIndex) =>
-                                  Container(
-                                    child: homeScreenCard(itemIndex,context),
+                            Card(
+                              shadowColor: AppColor.cardShadow,
+                              margin: EdgeInsets.fromLTRB(10, 10, 10, 5),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                                    child: Text(
+                                      "Device Status",
+                                      style: TextStyle(
+                                          color: AppColor.cardDivider,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
                                   ),
-                              options: CarouselOptions(
-                                height: 300.0,
+                                  Divider(
+                                    color: AppColor.greyColor,
+                                    height: 1,
+                                  ),
+                                  CarouselSlider.builder(
+                                    itemCount: snapshot.data!.data!.length,
+                                    itemBuilder: (BuildContext context, int itemIndex,
+                                        int pageViewIndex) =>
+                                        Container(
+                                          child: homeScreenCard(itemIndex,context,
+                                              snapshot.data!.data![itemIndex]),
+                                        ),
+                                    options: CarouselOptions(
+                                      height: 300.0,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
 
-                      /* Latest Results List*/
+                            /* Latest Results List*/
 
-                      Card(
-                        shadowColor: AppColor.cardShadow,
-                        margin: EdgeInsets.fromLTRB(10, 15, 10, 5),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:
-                              const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                              child: Text(
-                                "Latest Results",
-                                style: TextStyle(
-                                    color: AppColor.cardDivider,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                            ),
-                            Divider(
-                              color: AppColor.greyColor,
-                              height: 1,
-                            ),
-                            Container(
-                              child: ListView.builder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: 10,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Container(
-                                      padding:
-                                      EdgeInsets.fromLTRB(10, 10, 10, 10),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.start,
-                                        children: [
-                                          Stack(
-                                              alignment: Alignment.center,
+                            Card(
+                              shadowColor: AppColor.cardShadow,
+                              margin: EdgeInsets.fromLTRB(10, 15, 10, 5),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                                    child: Text(
+                                      "Latest Results",
+                                      style: TextStyle(
+                                          color: AppColor.cardDivider,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
+                                    ),
+                                  ),
+                                  Divider(
+                                    color: AppColor.greyColor,
+                                    height: 1,
+                                  ),
+                                  Container(
+                                    child: ListView.builder(
+                                        physics: NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: latestResults!.data!.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return Container(
+                                            padding:
+                                            EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                               children: [
-                                                Image.asset(
-                                                  'assets/images/light_green_dot.png',
-                                                  height: 40,
+                                                Stack(
+                                                    alignment: Alignment.center,
+                                                    children: [
+                                                      Image.asset(
+                                                        'assets/images/light_green_dot.png',
+                                                        height: 40,
+                                                      ),
+                                                      Image.asset(
+                                                        'assets/images/petrol_pump.png',
+                                                        height: 20,
+                                                      ),
+                                                    ]),
+                                                Expanded(
+                                                  child: Container(
+                                                    padding: EdgeInsets.fromLTRB(
+                                                        20, 5, 10, 5),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text(
+                                                          latestResults!.data![index].approvedOrRejectedBy!.name.toString(),
+                                                          style: TextStyle(
+                                                              color: AppColor
+                                                                  .cardDivider,
+                                                              fontWeight:
+                                                              FontWeight.bold,
+                                                              fontSize: 15),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 3,
+                                                        ),
+                                                        Text(
+                                                          latestResults!.data![index].deviceId.toString(),
+                                                          style: TextStyle(
+                                                              color:
+                                                              AppColor.cardShadow,
+                                                              fontWeight:
+                                                              FontWeight.bold,
+                                                              fontSize: 10),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Text(
+                                                          latestResults!.data![index].result!.densityUnit!+" kg/m3",
+                                                          style: TextStyle(
+                                                              color: AppColor
+                                                                  .cardDivider,
+                                                              fontWeight:
+                                                              FontWeight.bold,
+                                                              fontSize: 15),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 3,
+                                                        ),
+                                                        Text(
+                                                          latestResults!.data![index].result!.temperatureUnit!+" c",
+                                                          style: TextStyle(
+                                                              color:
+                                                              AppColor.cardShadow,
+                                                              fontWeight:
+                                                              FontWeight.bold,
+                                                              fontSize: 10),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
                                                 ),
-                                                Image.asset(
-                                                  'assets/images/petrol_pump.png',
-                                                  height: 20,
+                                                GestureDetector(
+                                                  onTapDown: (TapDownDetails details){
+                                                    _showPopupMenu(details.globalPosition);
+                                                  },
+                                                  child: getStatus(latestResults!.data![index].approvedStatus!),
                                                 ),
-                                              ]),
-                                          Expanded(
-                                            child: Container(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  20, 5, 10, 5),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Device M -01",
-                                                    style: TextStyle(
-                                                        color: AppColor
-                                                            .cardDivider,
-                                                        fontWeight:
-                                                        FontWeight.bold,
-                                                        fontSize: 15),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 3,
-                                                  ),
-                                                  Text(
-                                                    "Id- Abcdegh",
-                                                    style: TextStyle(
-                                                        color:
-                                                        AppColor.cardShadow,
-                                                        fontWeight:
-                                                        FontWeight.bold,
-                                                        fontSize: 10),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text(
-                                                    "739.06 kg/m3",
-                                                    style: TextStyle(
-                                                        color: AppColor
-                                                            .cardDivider,
-                                                        fontWeight:
-                                                        FontWeight.bold,
-                                                        fontSize: 15),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 3,
-                                                  ),
-                                                  Text(
-                                                    "26.75 c",
-                                                    style: TextStyle(
-                                                        color:
-                                                        AppColor.cardShadow,
-                                                        fontWeight:
-                                                        FontWeight.bold,
-                                                        fontSize: 10),
-                                                  ),
-                                                ],
-                                              ),
+                                              ],
                                             ),
-                                          ),
-                                          GestureDetector(
-                                            onTapDown: (TapDownDetails details){
-                                              _showPopupMenu(details.globalPosition);
-                                            },
-                                            child: index.isOdd?pending():Container(
-                                             padding: EdgeInsets.fromLTRB(15, 6, 15, 6),
-                                              width: 110,
-
-                                              decoration: BoxDecoration(
-                                                color: index.isOdd?AppColor.acceptBg:AppColor.rejectBg,
-                                                borderRadius: BorderRadius.circular(3),
-                                              ),
-                                              child: Center(child: Text(index.isOdd?"Accepted":"Rejected",style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold,color: index.isOdd?AppColor.approvedColor:AppColor.rejectedColor))),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }),
+                                          );
+                                        }),
+                                  )
+                                ],
+                              ),
                             )
                           ],
                         ),
-                      )
-                    ],
-                  ),
-                ),
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                   print(snapshot.error.toString());
+                    return Text('${snapshot.error}');
+                  }
+
+                  // By default, show a loading spinner.
+                  return const CircularProgressIndicator();
+                },
+
               )
             ],
           ),
         ));
   }
+Widget getStatus(String value){
+    if(value == "approve"){
+   return   Container(
+     padding: EdgeInsets.fromLTRB(15, 6, 15, 6),
+     width: 110,
 
+     decoration: BoxDecoration(
+       color: AppColor.acceptBg,
+       borderRadius: BorderRadius.circular(3),
+     ),
+     child: Center(
+       child: Text(
+              "Accepted",style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold,color: AppColor.approvedColor)),
+     ),
+   );
+    }else if(value == "reject"){
+      return   Container(
+        padding: EdgeInsets.fromLTRB(15, 6, 15, 6),
+        width: 110,
+
+        decoration: BoxDecoration(
+          color: AppColor.rejectBg,
+          borderRadius: BorderRadius.circular(3),
+        ),
+        child: Center(
+          child: Text(
+              "Rejected",style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold,
+              color: AppColor.rejectedColor)),
+        ),
+      );
+    }else{
+     return  pending();
+    }
+}
   void _showPopupMenu(Offset offset) async {
     double left = offset.dx;
     double top = offset.dy;
