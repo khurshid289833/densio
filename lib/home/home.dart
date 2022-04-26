@@ -43,7 +43,7 @@ class HomeState extends State<Home> {
                         onTap: () {
                           _key.currentState!.openDrawer();
                         },
-                        child: Icon(Icons.sort))
+                        child: Image.asset("assets/images/burger_icon.png",height: 25,))
                   ],
                 ),
               ),
