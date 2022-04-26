@@ -31,7 +31,7 @@ Card homeScreenCard(int index,BuildContext context,Data? data) {
             height: 6,
           ),
           Text(
-            "Id- Abcdegh",
+            data!.deviceId!,
             style: TextStyle(
                 color: AppColor.cardShadow,
                 fontWeight: FontWeight.bold,
@@ -75,7 +75,7 @@ Card homeScreenCard(int index,BuildContext context,Data? data) {
                     height: 5,
                   ),
                   Text(
-                    "10-4-2022",
+                    data!.modifiedDate!,
                     style: TextStyle(color: AppColor.cardShadow, fontSize: 13),
                   ),
                 ],
@@ -105,7 +105,7 @@ Card homeScreenCard(int index,BuildContext context,Data? data) {
                       height: 5,
                     ),
                     Text(
-                      "Online",
+                      data!.online!?"Online":"Offline",
                       style: TextStyle(
                           color: AppColor.cardShadow, fontSize: 13),
                     ),
