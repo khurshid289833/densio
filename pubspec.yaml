@@ -89,6 +89,8 @@ flutter:
     - assets/images/guarantee.png
     - assets/images/download_certificate.png
     - assets/images/active.png
+    - assets/images/inactive.png
+    - assets/images/burger_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

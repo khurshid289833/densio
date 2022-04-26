@@ -90,13 +90,6 @@ class AppString{
   static const String customerSupport = "Customer Support";
 
 
-
-
-
-
-
-
-
   //Certificate
   static const String isoCeritificate = "ISO Certificate";
   static const String id = "ID : ";
