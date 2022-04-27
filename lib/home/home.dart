@@ -131,7 +131,7 @@ class HomeState extends State<Home> {
                                         color: AppColor.greyColor,
                                         height: 1,
                                       ),
-                                      CarouselSlider.builder(
+                                      futureDevices?.data !=null ? CarouselSlider.builder(
                                         itemCount: futureDevices!.data!.length,
                                         itemBuilder: (BuildContext context,
                                                 int itemIndex,
@@ -145,7 +145,16 @@ class HomeState extends State<Home> {
                                         options: CarouselOptions(
                                           height: 300.0,
                                         ),
-                                      ),
+                                      ):Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            15, 10, 15, 10),
+                                        child: Text(
+                                          "No Data Found",
+                                          style: TextStyle(
+                                              color: AppColor.cardDivider,
+                                              fontSize: 15),
+                                        ),
+                                      ) ,
                                     ],
                                   ),
                                 ),
@@ -175,7 +184,7 @@ class HomeState extends State<Home> {
                                         height: 1,
                                       ),
                                       Container(
-                                        child: ListView.builder(
+                                        child:latestResults?.data !=null ? ListView.builder(
                                             physics:
                                                 NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
@@ -306,7 +315,17 @@ class HomeState extends State<Home> {
                                                   ],
                                                 ),
                                               );
-                                            }),
+                                            }):Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              15, 10, 15, 10),
+                                          child: Text(
+                                            "No Data Found",
+                                            style: TextStyle(
+                                                color: AppColor.cardDivider,
+
+                                                fontSize: 15),
+                                          ),
+                                        ) ,
                                       )
                                     ],
                                   ),
