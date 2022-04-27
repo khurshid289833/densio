@@ -5,12 +5,14 @@ import 'package:untitled2/home/reportView.dart';
 import 'package:untitled2/home/certificates.dart';
 import 'package:untitled2/home/summaryView.dart';
 import 'package:untitled2/home/warrantyView.dart';
+import 'package:untitled2/model/AllDevicesResponse.dart';
 import 'package:untitled2/utils/appColor.dart';
 import 'package:untitled2/utils/appString.dart';
 import 'package:provider/provider.dart';
 
 class HomeDetailsScreen extends StatefulWidget {
-  const HomeDetailsScreen({Key? key}) : super(key: key);
+  Data data;
+  HomeDetailsScreen({Key? key,required this.data}) : super(key: key);
 
   @override
   _HomeDetailsScreenState createState() => _HomeDetailsScreenState();
@@ -18,38 +20,31 @@ class HomeDetailsScreen extends StatefulWidget {
 
 class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
-  int _selectedIndex = 0;
-
+  late HomeDetailsController provider;
 
   @override
   void initState() {
     super.initState();
-    HomeDetailsController provider = Provider.of<HomeDetailsController>(context,listen: false);
+    provider = Provider.of<HomeDetailsController>(context,listen: false);
     provider.pageController = PageController();
     provider.pageController.addListener(() {
       setState(() {
-        _selectedIndex = provider.pageController.page!.toInt();
+        provider.selectedIndex = provider.pageController.page!.toInt();
       });
     });
-  }
-
-  late HomeDetailsController provider;
-
-  @override
-  void didChangeDependencies() {
-    provider = Provider.of<HomeDetailsController>(context, listen: false);
-    super.didChangeDependencies();
+    provider.fetchSummaryDetails(widget.data.deviceId!);
+    provider.fetchSummaryDetailsLatestResult(widget.data.deviceId!,widget.data.slotInfo![0].id!);
   }
 
   @override
   void dispose() {
     provider.pageController.dispose();
+    provider.reset();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    HomeDetailsController provider = Provider.of<HomeDetailsController>(context);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -95,9 +90,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                         //width: screenWidth*0.23,
                         child: Column(
                           children: [
-                            Image.asset("assets/images/summary_icon.png",color: _selectedIndex==0?AppColor.blueColor:AppColor.textFieldBorderColor,height: 20,width: 20),
+                            Image.asset("assets/images/summary_icon.png",color: provider.selectedIndex==0?AppColor.blueColor:AppColor.textFieldBorderColor,height: 20,width: 20),
                             SizedBox(height: 4),
-                            Text(AppString.summary,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w700,color: _selectedIndex==0?AppColor.blueColor:AppColor.textFieldBorderColor)),
+                            Text(AppString.summary,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w700,color: provider.selectedIndex==0?AppColor.blueColor:AppColor.textFieldBorderColor)),
                           ],
                         ),
                       ),
@@ -110,9 +105,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                         //width: screenWidth*0.23,
                         child: Column(
                           children: [
-                            Image.asset("assets/images/report_icon.png",color: _selectedIndex==1?AppColor.blueColor:AppColor.textFieldBorderColor,height: 20,width: 25,fit: BoxFit.cover,),
+                            Image.asset("assets/images/report_icon.png",color: provider.selectedIndex==1?AppColor.blueColor:AppColor.textFieldBorderColor,height: 20,width: 25,fit: BoxFit.cover,),
                             SizedBox(height: 4),
-                            Text(AppString.report,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w700,color: _selectedIndex==1?AppColor.blueColor:AppColor.textFieldBorderColor)),
+                            Text(AppString.report,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w700,color: provider.selectedIndex==1?AppColor.blueColor:AppColor.textFieldBorderColor)),
                           ],
                         ),
                       ),
@@ -125,9 +120,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                         //width: screenWidth*0.23,
                         child: Column(
                           children: [
-                            Image.asset("assets/images/certificate.png",color: _selectedIndex==2?AppColor.blueColor:AppColor.textFieldBorderColor,height: 22,width: 20,fit: BoxFit.cover,),
+                            Image.asset("assets/images/certificate.png",color: provider.selectedIndex==2?AppColor.blueColor:AppColor.textFieldBorderColor,height: 22,width: 20,fit: BoxFit.cover,),
                             SizedBox(height: 2),
-                            Text(AppString.certificate,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w700,color: _selectedIndex==2?AppColor.blueColor:AppColor.textFieldBorderColor)),
+                            Text(AppString.certificate,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w700,color: provider.selectedIndex==2?AppColor.blueColor:AppColor.textFieldBorderColor)),
                           ],
                         ),
                       ),
@@ -140,9 +135,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                         //width: screenWidth*0.23,
                         child: Column(
                           children: [
-                            Image.asset("assets/images/guarantee.png",color: _selectedIndex==3?AppColor.blueColor:AppColor.textFieldBorderColor,height: 22,width: 28,fit: BoxFit.cover,),
+                            Image.asset("assets/images/guarantee.png",color: provider.selectedIndex==3?AppColor.blueColor:AppColor.textFieldBorderColor,height: 22,width: 28,fit: BoxFit.cover,),
                             SizedBox(height: 2),
-                            Text(AppString.warranty,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w700,color: _selectedIndex==3?AppColor.blueColor:AppColor.textFieldBorderColor)),
+                            Text(AppString.warranty,style: TextStyle(fontSize: 11,fontWeight: FontWeight.w700,color: provider.selectedIndex==3?AppColor.blueColor:AppColor.textFieldBorderColor)),
                           ],
                         ),
                       ),
@@ -156,11 +151,11 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                   controller: provider.pageController,
                   physics: NeverScrollableScrollPhysics(),
                   children: [
-                    SummaryView(),
-                    ReportView(),
-                  Certificate(),
-                WarrantyView(),
-                   ],
+                    SummaryView(data: widget.data),
+                    ReportView(data: widget.data),
+                    Certificate(),
+                    WarrantyView(),
+                  ],
                 ),
               ),
             ],

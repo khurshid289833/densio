@@ -1,25 +1,31 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled2/controller/homeDetailsController.dart';
-import 'package:untitled2/controller/summaryViewController.dart';
+import 'package:untitled2/model/AllDevicesResponse.dart';
 import 'package:untitled2/utils/appColor.dart';
 import 'package:untitled2/utils/appString.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class SummaryView extends StatefulWidget {
-  const SummaryView({Key? key}) : super(key: key);
+  Data data;
+  SummaryView({Key? key,required this.data}) : super(key: key);
 
   @override
   _SummaryViewState createState() => _SummaryViewState();
 }
 
 class _SummaryViewState extends State<SummaryView> {
+
   ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
-    SummaryViewController provider = Provider.of<SummaryViewController>(context);
-    HomeDetailsController providerHomeDetails = Provider.of<HomeDetailsController>(context);
-    return Container(
+    HomeDetailsController _homeDetailsProvider = Provider.of<HomeDetailsController>(context);
+    return _homeDetailsProvider.isLoadingSummary?
+    Center(child: CircularProgressIndicator(),):
+    _homeDetailsProvider.isErrorSummary?Center(child: Text("Something went wrong"),):
+      Container(
       child: ListView(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
@@ -31,8 +37,13 @@ class _SummaryViewState extends State<SummaryView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("DDM-P-01",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
-                Image.asset("assets/images/cross.png"),
+                Text(widget.data.deviceName!,style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
+                InkWell(
+                  onTap: (){
+                    Navigator.of(context).pop();
+                  },
+                  child: Image.asset("assets/images/cross.png"),
+                ),
               ],
             ),
           ),
@@ -42,7 +53,7 @@ class _SummaryViewState extends State<SummaryView> {
               children: [
                 Image.asset("assets/images/device.png",height: 18,width: 25),
                 SizedBox(width: 8),
-                Text("${AppString.model} DDM01",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
+                Text("${AppString.model} ${widget.data.model!}",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
               ],
             ),
           ),
@@ -53,7 +64,7 @@ class _SummaryViewState extends State<SummaryView> {
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black.withOpacity(0.1)),
             ),
-            child: Text("${AppString.type} Petrol & Diesel",style: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor)),
+            child: Text("${AppString.type} ${widget.data.slotInfo![0].liquidType!.toTitleCase}",style: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor)),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 30,left: 15,right: 15),
@@ -72,7 +83,7 @@ class _SummaryViewState extends State<SummaryView> {
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black.withOpacity(0.1)),
             ),
-            child: Text("${AppString.lastCalibratedDate} 23/02/2022",style: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor)),
+            child: Text("${AppString.lastCalibratedDate} ${splitDate(_homeDetailsProvider.data.data.lastCalibrationDate)}",style: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor)),
           ),
           Container(
             height: 40,
@@ -100,7 +111,7 @@ class _SummaryViewState extends State<SummaryView> {
                       style: TextStyle(fontSize: 9,fontWeight: FontWeight.bold,color: AppColor.blueColor),
                     ),
                     onPressed: (){
-                      providerHomeDetails.pageController.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.ease);
+                      _homeDetailsProvider.pageController.animateToPage(1, duration: Duration(milliseconds: 500), curve: Curves.ease);
                     },
                   ),
                 ),
@@ -114,7 +125,7 @@ class _SummaryViewState extends State<SummaryView> {
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black.withOpacity(0.1)),
             ),
-            child: Text("${AppString.nextCalibrationDate} 23/02/2022",style: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor)),
+            child: Text("${AppString.nextCalibrationDate} ${splitDate(_homeDetailsProvider.data.data.nextCalibrationDate)}",style: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor)),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 30,left: 15,right: 15),
@@ -152,13 +163,17 @@ class _SummaryViewState extends State<SummaryView> {
                       style: TextStyle(fontSize: 9,fontWeight: FontWeight.bold,color: AppColor.blueColor),
                     ),
                     onPressed: (){
-                      providerHomeDetails.pageController.animateToPage(2, duration: Duration(milliseconds: 500), curve: Curves.ease);
+                      _homeDetailsProvider.pageController.animateToPage(2, duration: Duration(milliseconds: 500), curve: Curves.ease);
                     },
                   ),
                 ),
               ],
             ),
           ),
+
+          _homeDetailsProvider.isLoadingSummaryResult?
+          Container(height:300,child: Center(child: CircularProgressIndicator(),)):
+          _homeDetailsProvider.isErrorSummaryResult?Container():
           Padding(
             padding: const EdgeInsets.only(top: 15,left: 5,right: 5),
             child: Card(
@@ -195,7 +210,7 @@ class _SummaryViewState extends State<SummaryView> {
                             child: DropdownButton2(
                               icon: Image.asset("assets/images/downArrow.png"),
                               hint: Text(AppString.show,style: TextStyle(fontSize: 14,color: AppColor.textFieldBorderColor,fontWeight: FontWeight.bold)),
-                              items: provider.items.map((item) => DropdownMenuItem<String>(
+                              items: _homeDetailsProvider.items.map((item) => DropdownMenuItem<String>(
                                     value: item,
                                     child: Container(
                                       child: Column(
@@ -206,10 +221,11 @@ class _SummaryViewState extends State<SummaryView> {
                                       ),
                                     ),
                                   )).toList(),
-                              //value: selectedValue,
+                              //value: _homeDetailsProvider.selectedValue,
                               onChanged: (value) {
                                 setState(() {
-                                  provider.selectedValue = value as String;
+                                  _homeDetailsProvider.selectedValue = value as String;
+                                  _homeDetailsProvider.filterData(_homeDetailsProvider.selectedValue!);
                                 });
                               },
                               dropdownDecoration: BoxDecoration(
@@ -245,8 +261,19 @@ class _SummaryViewState extends State<SummaryView> {
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         physics: ScrollPhysics(),
-                        itemCount: 5,
+                        itemCount: _homeDetailsProvider.isFilter?
+                        _homeDetailsProvider.filterDataList.length>10?10:_homeDetailsProvider.filterDataList.length:
+                        _homeDetailsProvider.latestDataList.length>10?10:_homeDetailsProvider.latestDataList.length,
                         itemBuilder: (context,index){
+
+                          String dateTime = _homeDetailsProvider.isFilter?_homeDetailsProvider.filterDataList[index].approvedOrRejectedBy.datetime:_homeDetailsProvider.latestDataList[index].approvedOrRejectedBy.datetime;
+                          DateTime dateTimeParsed = DateTime.parse(dateTime);
+                          DateTime dateTimeLocal = dateTimeParsed.toLocal();
+                          String date = DateFormat('dd MMMM yyyy').format(dateTimeLocal);
+                          String time = DateFormat('hh:mm a').format(dateTimeLocal);
+                          print(date);
+                          print(time);
+
                           return Column(
                             children: [
                               Container(
@@ -272,13 +299,13 @@ class _SummaryViewState extends State<SummaryView> {
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            Text("DDM-P-01",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
+                                            Text(_homeDetailsProvider.isFilter?_homeDetailsProvider.filterDataList[index].deviceName:_homeDetailsProvider.latestDataList[index].deviceName,style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
                                             SizedBox(height: 5),
-                                            Text("25 Jul 2021 | 11:45 PM",style: TextStyle(fontSize: 10,fontWeight: FontWeight.w400,color: AppColor.textFieldBorderColor)),
+                                            Text("$date | $time",style: TextStyle(fontSize: 10,fontWeight: FontWeight.w400,color: AppColor.textFieldBorderColor)),
                                             SizedBox(height: 20),
-                                            Text("739.06 kg/m3",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
+                                            Text("${_homeDetailsProvider.isFilter?_homeDetailsProvider.filterDataList[index].result.density:_homeDetailsProvider.latestDataList[index].result.density} ${_homeDetailsProvider.isFilter?_homeDetailsProvider.filterDataList[index].result.densityUnit:_homeDetailsProvider.latestDataList[index].result.densityUnit}",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
                                             SizedBox(height: 5),
-                                            Text("26.75 c",style: TextStyle(fontSize: 10,fontWeight: FontWeight.w400,color: AppColor.textFieldBorderColor)),
+                                            Text("${_homeDetailsProvider.isFilter?_homeDetailsProvider.filterDataList[index].result.temperature:_homeDetailsProvider.latestDataList[index].result.temperature} ${_homeDetailsProvider.isFilter?_homeDetailsProvider.filterDataList[index].result.temperatureUnit:_homeDetailsProvider.latestDataList[index].result.temperatureUnit}",style: TextStyle(fontSize: 10,fontWeight: FontWeight.w400,color: AppColor.textFieldBorderColor)),
                                           ],
                                         ),
                                       ),
@@ -290,10 +317,12 @@ class _SummaryViewState extends State<SummaryView> {
                                         //width: 90,
                                         margin: EdgeInsets.only(right: 40),
                                         decoration: BoxDecoration(
-                                          color: index.isOdd?AppColor.lightGreenBackground:AppColor.lightRedBackground,
+                                          color: _homeDetailsProvider.isFilter?
+                                          _homeDetailsProvider.filterDataList[index].approvedStatus=="approve"? AppColor.lightGreenBackground:AppColor.lightRedBackground:
+                                          _homeDetailsProvider.latestDataList[index].approvedStatus=="approve"? AppColor.lightGreenBackground:AppColor.lightRedBackground,
                                           borderRadius: BorderRadius.circular(3),
                                         ),
-                                        child: Center(child: Text(index.isOdd?"Accepted":"Rejected",style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold,color: index.isOdd?AppColor.greenText:AppColor.redText))),
+                                        child: Center(child: Text(_homeDetailsProvider.isFilter?_homeDetailsProvider.filterDataList[index].approvedStatus=="approve"?"Accepted":"Rejected":_homeDetailsProvider.latestDataList[index].approvedStatus=="approve"?"Accepted":"Rejected",style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold,color: _homeDetailsProvider.isFilter?_homeDetailsProvider.filterDataList[index].approvedStatus=="approve"?AppColor.greenText:AppColor.redText:_homeDetailsProvider.latestDataList[index].approvedStatus=="approve"?AppColor.greenText:AppColor.redText))),
                                       ),
                                     ),
                                   ],
@@ -321,4 +350,18 @@ class _SummaryViewState extends State<SummaryView> {
       ),
     );
   }
+
+  String splitDate(String date) {
+    List<String> dateLocal = date.split("-");
+    String result = "${dateLocal[2]}/${dateLocal[1]}/${dateLocal[0]}";
+    return result;
+  }
+
+
+}
+
+
+extension StringCasingExtension on String {
+  String toCapitalized() => this.length > 0 ?'${this[0].toUpperCase()}${this.substring(1)}':'';
+  String get toTitleCase => this.replaceAll(RegExp(' +'), ' ').split(" ").map((str) => str.toCapitalized()).join(" ");
 }

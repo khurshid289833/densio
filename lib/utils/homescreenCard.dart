@@ -118,7 +118,7 @@ Card homeScreenCard(int index,BuildContext context,Data? data) {
                 width: 20,
               ),
               GestureDetector(onTap:()async{
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>HomeDetailsScreen()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>HomeDetailsScreen(data: data)));
               }, child: Image.asset(
                   'assets/images/viewmore.png', width: 90, height: 30)),
             ],
