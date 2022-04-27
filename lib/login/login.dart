@@ -218,7 +218,7 @@ class LoginState extends State<Login> {
                               Fluttertoast.showToast(
                                   msg: "User logged in successfully",  // message
                                   toastLength: Toast.LENGTH_SHORT, // length
-                                  gravity: ToastGravity.CENTER,    // location
+                                  gravity: ToastGravity.BOTTOM,    // location
                                   timeInSecForIosWeb: 1               // duration
                               );
                               Navigator.pushReplacementNamed(context, pageRoutes.home);

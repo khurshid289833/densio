@@ -129,8 +129,9 @@ class Data {
   Data({
       String? id, 
       String? slotId, 
-      String? deviceId, 
-      Result? result, 
+      String? deviceId,
+    String? deviceName,
+    Result? result,
       String? approvedStatus, 
       ApprovedOrRejectedBy? approvedOrRejectedBy, 
       String? createdDate, 
@@ -138,6 +139,7 @@ class Data {
     _id = id;
     _slotId = slotId;
     _deviceId = deviceId;
+    _deviceName = deviceName;
     _result = result;
     _approvedStatus = approvedStatus;
     _approvedOrRejectedBy = approvedOrRejectedBy;
@@ -149,6 +151,7 @@ class Data {
     _id = json['id'];
     _slotId = json['slotId'];
     _deviceId = json['deviceId'];
+    _deviceName = json['deviceName'];
     _result = json['result'] != null ? Result.fromJson(json['result']) : null;
     _approvedStatus = json['approvedStatus'];
     _approvedOrRejectedBy = json['approvedOrRejectedBy'] != null ? ApprovedOrRejectedBy.fromJson(json['approvedOrRejectedBy']) : null;
@@ -158,6 +161,7 @@ class Data {
   String? _id;
   String? _slotId;
   String? _deviceId;
+  String? _deviceName;
   Result? _result;
   String? _approvedStatus;
   ApprovedOrRejectedBy? _approvedOrRejectedBy;
@@ -166,7 +170,14 @@ class Data {
 
   String? get id => _id;
   String? get slotId => _slotId;
+
+  set approvedStatus(String? value) {
+    _approvedStatus = value;
+  }
+
   String? get deviceId => _deviceId;
+  String? get deviceName => _deviceName;
+
   Result? get result => _result;
   String? get approvedStatus => _approvedStatus;
   ApprovedOrRejectedBy? get approvedOrRejectedBy => _approvedOrRejectedBy;
@@ -178,6 +189,8 @@ class Data {
     map['id'] = _id;
     map['slotId'] = _slotId;
     map['deviceId'] = _deviceId;
+    map['deviceName'] = _deviceName;
+
     if (_result != null) {
       map['result'] = _result?.toJson();
     }
