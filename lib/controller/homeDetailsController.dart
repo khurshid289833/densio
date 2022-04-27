@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:untitled2/model/latestResultModel.dart' as latest;
 import 'package:untitled2/model/summaryDetailsModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,12 +36,13 @@ class HomeDetailsController extends ChangeNotifier{
   late latest.LatestResultModel latestResult;
   List<latest.Data> latestDataList = [];
   List<latest.Data> filterDataList = [];
+  List<latest.Data> searchDataList = [];
   HomeScreenDetailsService _homeScreenDetailsService = HomeScreenDetailsService();
 
-  void fetchSummaryDetails()async{
+  void fetchSummaryDetails(String deviceId)async{
     final SharedPreferences _preferences = await SharedPreferences.getInstance();
     accessToken = _preferences.getString("access_token")??"";
-    data = await _homeScreenDetailsService.summaryDetails("dev101", accessToken);
+    data = await _homeScreenDetailsService.summaryDetails(deviceId, accessToken);
     if(data.status == true){
       isLoadingSummary = false;
       notifyListeners();
@@ -51,13 +53,14 @@ class HomeDetailsController extends ChangeNotifier{
     }
   }
 
-  void fetchSummaryDetailsLatestResult()async{
+  void fetchSummaryDetailsLatestResult(String deviceId,String slotId)async{
     final SharedPreferences _preferences = await SharedPreferences.getInstance();
     accessToken = _preferences.getString("access_token")??"";
-    latestResult = await _homeScreenDetailsService.summaryDetailsLatestResult("dev101", accessToken);
+    latestResult = await _homeScreenDetailsService.summaryDetailsLatestResult(deviceId, slotId,accessToken);
     if(latestResult.status == true){
       isLoadingSummaryResult = false;
       latestDataList = latestResult.data.where((x) => x.approvedStatus=="approve" || x.approvedStatus=="reject").toList();
+      searchDataList = latestDataList;
       notifyListeners();
     }else{
       isLoadingSummaryResult = false;
@@ -84,6 +87,29 @@ class HomeDetailsController extends ChangeNotifier{
 
     isFilter = true;
     notifyListeners();
+  }
+
+
+  filterSearchResult(String param){
+
+    var temp = latestDataList.where((value) {
+
+      String dateTime = value.createdDate;
+      DateTime dateTimeParsed = DateTime.parse(dateTime);
+      DateTime dateTimeLocal = dateTimeParsed.toLocal();
+      String date = DateFormat('dd/MM/yyyy').format(dateTimeLocal);
+
+      bool cond;
+      param.length>1? cond = date.contains(param):cond=false;
+
+      return value.id==param || cond;
+    }).toList();
+    searchDataList = temp;
+    if(param.isEmpty){
+      searchDataList = latestDataList;
+    }
+    notifyListeners();
+
   }
 
 }

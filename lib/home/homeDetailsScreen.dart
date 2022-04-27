@@ -5,12 +5,14 @@ import 'package:untitled2/home/reportView.dart';
 import 'package:untitled2/home/certificates.dart';
 import 'package:untitled2/home/summaryView.dart';
 import 'package:untitled2/home/warrantyView.dart';
+import 'package:untitled2/model/AllDevicesResponse.dart';
 import 'package:untitled2/utils/appColor.dart';
 import 'package:untitled2/utils/appString.dart';
 import 'package:provider/provider.dart';
 
 class HomeDetailsScreen extends StatefulWidget {
-  const HomeDetailsScreen({Key? key}) : super(key: key);
+  Data data;
+  HomeDetailsScreen({Key? key,required this.data}) : super(key: key);
 
   @override
   _HomeDetailsScreenState createState() => _HomeDetailsScreenState();
@@ -30,8 +32,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
         provider.selectedIndex = provider.pageController.page!.toInt();
       });
     });
-    provider.fetchSummaryDetails();
-    provider.fetchSummaryDetailsLatestResult();
+    provider.fetchSummaryDetails(widget.data.deviceId!);
+    provider.fetchSummaryDetailsLatestResult(widget.data.deviceId!,widget.data.slotInfo![0].id!);
   }
 
   @override
@@ -149,8 +151,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                   controller: provider.pageController,
                   physics: NeverScrollableScrollPhysics(),
                   children: [
-                    SummaryView(),
-                    ReportView(),
+                    SummaryView(data: widget.data),
+                    ReportView(data: widget.data),
                     Certificate(),
                     WarrantyView(),
                   ],

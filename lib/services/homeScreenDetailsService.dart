@@ -43,17 +43,17 @@ class HomeScreenDetailsService{
   }
 
 
-  Future<latest.LatestResultModel> summaryDetailsLatestResult(String deviceId,String token) async {
+  Future<latest.LatestResultModel> summaryDetailsLatestResult(String deviceId,String slotId,String token) async {
 
     latest.LatestResultModel data;
     var parsed;
 
-    print(AppUrl.summaryDetailsLatestResult+deviceId);
+    print(AppUrl.summaryDetailsLatestResult+"slot_id=$slotId&page=1&per_page=10&deviceId="+deviceId);
 
     try {
 
       final response = await http.get(
-          Uri.parse(AppUrl.summaryDetailsLatestResult+deviceId),
+          Uri.parse(AppUrl.summaryDetailsLatestResult+"slot_id=$slotId&page=1&per_page=10&deviceId="+deviceId),
           headers: {
             HttpHeaders.authorizationHeader: "Bearer $token",
             "Content-Type": "application/json"

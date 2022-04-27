@@ -28,7 +28,12 @@ class _WarrantyViewState extends State<WarrantyView> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("DDM-P-01",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: AppColor.textFieldBorderColor)),
-                      Image.asset("assets/images/cross.png"),
+                      InkWell(
+                        onTap: (){
+                          Navigator.of(context).pop();
+                        },
+                        child: Image.asset("assets/images/cross.png"),
+                      ),
                     ],
                   ),
                 ),
