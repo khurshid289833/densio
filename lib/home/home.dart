@@ -285,10 +285,10 @@ class HomeState extends State<Home> {
                                                     GestureDetector(
                                                       onTapDown: (TapDownDetails
                                                           details) {
-                                                        // if (latestResults!
-                                                        //     .data![index]
-                                                        //     .approvedStatus ==
-                                                        //     "pending") {
+                                                        if (latestResults!
+                                                            .data![index]
+                                                            .approvedStatus ==
+                                                            "pending") {
                                                         _showPopupMenu(
                                                             details
                                                                 .globalPosition,
@@ -296,7 +296,7 @@ class HomeState extends State<Home> {
                                                                 .data![index]
                                                                 .id!,
                                                             index);
-                                                        //  }
+                                                          }
                                                       },
                                                       child: getStatus(
                                                           latestResults!

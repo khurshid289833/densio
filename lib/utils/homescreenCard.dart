@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:untitled2/model/AllDevicesResponse.dart';
 
 import '../home/homeDetailsScreen.dart';
@@ -75,7 +76,7 @@ Card homeScreenCard(int index,BuildContext context,Data? data) {
                     height: 5,
                   ),
                   Text(
-                    data!.modifiedDate!,
+                    getFormattedDate(data!.modifiedDate!),
                     style: TextStyle(color: AppColor.cardShadow, fontSize: 13),
                   ),
                 ],
@@ -129,4 +130,17 @@ Card homeScreenCard(int index,BuildContext context,Data? data) {
       ),
     ),
   );
+
 }
+String getFormattedDate(String dateTime){
+ String newDate="";
+  DateTime dateTimeParsed = DateTime.parse(dateTime);
+  DateTime dateTimeLocal = dateTimeParsed.toLocal();
+  String date = DateFormat('dd MMMM yyyy').format(dateTimeLocal);
+  String time = DateFormat('hh:mm a').format(dateTimeLocal);
+ newDate= date+" | "+time;
+  return newDate.toString();
+
+}
+
+

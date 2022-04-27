@@ -271,8 +271,6 @@ class _SummaryViewState extends State<SummaryView> {
                           DateTime dateTimeLocal = dateTimeParsed.toLocal();
                           String date = DateFormat('dd MMMM yyyy').format(dateTimeLocal);
                           String time = DateFormat('hh:mm a').format(dateTimeLocal);
-                          print(date);
-                          print(time);
 
                           return Column(
                             children: [
